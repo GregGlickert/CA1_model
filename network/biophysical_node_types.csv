@@ -1,2 +1,2 @@
-node_type_id mem_potential model_type model_template morphology
-100 e biophysical hoc:cutsuridiscell 
+node_type_id model_template mem_potential morphology model_type
+100 hoc:poolosyncell e  biophysical

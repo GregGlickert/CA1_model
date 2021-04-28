@@ -5,14 +5,14 @@ public is_art, gid, randi, Vrest
 public init, topol, basic_shape, subsets, geom, biophys
 public pre_list, connect_pre
 
-public soma, apical, basal, axon
-public all, basal_list, apical_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
+public soma, apic, dend, axon
+public all, dend_list, apic_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
 public x, y, z, position, myroot, Vrest
 
 public pyramidalcell_list, axoaxoniccell_list, bistratifiedcell_list, cckcell_list
 public ivycell_list, ngfcell_list, olmcell_list, pvbasketcell_list, scacell_list
 public eccell_list, ca3cell_list, mscell_list
-public NumSoma, NumApical, NumBasal, NumAxon
+public NumSoma, Numapic, Numdend, NumAxon
 
 // strings
 strdef myroot
@@ -25,10 +25,10 @@ objref syn, pre_list, templist, rootlist, this
 
 // create the sections[segments]
 NumSoma=13
-NumApical=127
-NumBasal=60
+Numapic=127
+Numdend=60
 NumAxon=2
-create soma[NumSoma], apical[NumApical], basal[NumBasal], axon[NumAxon]
+create soma[NumSoma], apic[Numapic], dend[Numdend], axon[NumAxon]
 
 // set the initialization code, which is run whenever a new object
 // of this class is instantiated
@@ -61,10 +61,10 @@ proc init() {
 
 proc connect_sections() {
 	soma[0] {connect soma[1]  (0), 1
-			connect basal[0] (0),0
-			connect basal[20] (0),0
-			connect basal[23] (0),0
-			connect basal[41] (0),0}
+			connect dend[0] (0),0
+			connect dend[20] (0),0
+			connect dend[23] (0),0
+			connect dend[41] (0),0}
 
 	soma[1]  connect soma[2]  (0), 1
 	soma[2]  {connect soma[3]  (0), 1
@@ -80,212 +80,212 @@ proc connect_sections() {
 	soma[10]  connect soma[11]  (0), 1
 	soma[11]  connect soma[12]  (0), 1
 
-	soma[12]  connect apical[0]  (0), 1
+	soma[12]  connect apic[0]  (0), 1
 
-	apical[0]   connect apical[ 1]  (0), 1
-	apical[1]   connect apical[ 2]  (0), 1
-	apical[2]  {connect apical[121]  (0), 1
-				connect apical[ 3]  (0), 1}
-	apical[3]   connect apical[ 4]  (0), 1
-	apical[4]   connect apical[ 5]  (0), 1
-	apical[5]  {connect apical[ 6]  (0), 1
-				connect apical[113]  (0), 1}
-	apical[6]  {connect apical[ 7]  (0), 1
-				connect apical[112]  (0), 1}
-	apical[7]  {connect apical[106]  (0), 1
-				connect apical[ 8]  (0), 1}
-	apical[8]  {connect apical[ 9]  (0), 1
-				connect apical[105]  (0), 1}
-	apical[9]  {connect apical[103]  (0), 1
-				connect apical[ 10] (0), 1}
-	apical[10] {connect apical[ 11] (0), 1
-				connect apical[102]  (0), 1}
-	apical[11] {connect apical[101]  (0), 1
-				connect apical[ 12] (0), 1}
-	apical[12] {connect apical[ 13] (0), 1
-				connect apical[90]   (0), 1}
-	apical[13] {connect apical[78]  (0), 1
-				connect apical[ 14] (0), 1}
-	apical[14] {connect apical[76]  (0), 1
-				connect apical[ 15] (0), 1}
-	apical[15] {connect apical[ 16] (0), 1
-				connect apical[64]  (0), 1}
-	apical[16] {connect apical[26]  (0), 1
-				connect apical[ 17] (0), 1}
-	apical[17]  connect apical[ 18] (0), 1
-	apical[18] {connect apical[ 19] (0), 1
-				connect apical[21]  (0), 1}
-	apical[19]  connect apical[ 20] (0), 1
-	apical[21] {connect apical[ 22] (0), 1
-				connect apical[23]  (0), 1}
-	apical[23] {connect apical[ 24] (0), 1
-				connect apical[25]  (0), 1}
-	apical[26]  connect apical[ 27] (0), 1
-	apical[27] {connect apical[ 28] (0), 1
-				connect apical[39]  (0), 1}
-	apical[28]  connect apical[ 29] (0), 1
-	apical[29]  connect apical[ 30] (0), 1
-	apical[30] {connect apical[ 31] (0), 1
-				connect apical[38]  (0), 1}
-	apical[31] {connect apical[ 32] (0), 1
-				connect apical[35]  (0), 1}
-	apical[32] {connect apical[ 33] (0), 1
-				connect apical[34]  (0), 1}
-	apical[35] {connect apical[ 36] (0), 1
-				connect apical[37]  (0), 1}
-	apical[39] {connect apical[ 40] (0), 1
-				connect apical[59]  (0), 1}
-	apical[40] {connect apical[ 41] (0), 1
-				connect apical[50]  (0), 1}
-	apical[41] {connect apical[ 42] (0), 1
-				connect apical[49]  (0), 1}
-	apical[42]  connect apical[ 43] (0), 1
-	apical[43] {connect apical[ 44] (0), 1
-				connect apical[48]  (0), 1}
-	apical[44] {connect apical[ 45] (0), 1
-				connect apical[47]  (0), 1}
-	apical[45]  connect apical[ 46] (0), 1
-	apical[50] {connect apical[ 51] (0), 1
-				connect apical[52]  (0), 1}
-	apical[52] {connect apical[ 53] (0), 1
-				connect apical[56]  (0), 1}
-	apical[53] {connect apical[ 54] (0), 1
-				connect apical[55]  (0), 1}
-	apical[56] {connect apical[ 57] (0), 1
-				connect apical[58]  (0), 1}
-	apical[59] {connect apical[ 60] (0), 1
-				connect apical[61]  (0), 1}
-	apical[61] {connect apical[ 62] (0), 1
-				connect apical[63]  (0), 1}
-	apical[64] {connect apical[ 65] (0), 1
-				connect apical[72]  (0), 1}
-	apical[65] {connect apical[ 66] (0), 1
-				connect apical[71]  (0), 1}
-	apical[66] {connect apical[ 67] (0), 1
-				connect apical[70]  (0), 1}
-	apical[67] {connect apical[ 68] (0), 1
-				connect apical[69]  (0), 1}
-	apical[72]  connect apical[ 73] (0), 1
-	apical[73] {connect apical[ 74] (0), 1
-				connect apical[75]  (0), 1}
-	apical[76]  connect apical[ 77] (0), 1
-	apical[78] {connect apical[ 79] (0), 1
-				connect apical[80]  (0), 1}
-	apical[80] {connect apical[ 81] (0), 1
-				connect apical[89]   (0), 1}
-	apical[81] {connect apical[ 82] (0), 1
-				connect apical[88]   (0), 1}
-	apical[82] {connect apical[ 83] (0), 1
-				connect apical[87]   (0), 1}
-	apical[83] {connect apical[ 84] (0), 1
-				connect apical[85]  (0), 1}
-	apical[85]  connect apical[ 86] (0), 1
-	apical[90]  {connect apical[ 91]  (0), 1
-				connect apical[100]  (0), 1}
-	apical[91]  {connect apical[ 92]  (0), 1
-				connect apical[97]   (0), 1}
-	apical[92]  {connect apical[ 93]  (0), 1
-				connect apical[96]   (0), 1}
-	apical[93]  {connect apical[ 94]  (0), 1
-				connect apical[95]   (0), 1}
-	apical[97]  {connect apical[ 98]  (0), 1
-				connect apical[99]   (0), 1}
-	apical[103]  connect apical[ 104] (0), 1
-	apical[106] {connect apical[ 107] (0), 1
-				connect apical[109]  (0), 1}
-	apical[107]  connect apical[ 108] (0), 1
-	apical[109] {connect apical[ 110] (0), 1
-				connect apical[111]  (0), 1}
-	apical[113] {connect apical[ 114] (0), 1
-				connect apical[120]  (0), 1}
-	apical[114]  connect apical[ 115] (0), 1
-	apical[115] {connect apical[ 116] (0), 1
-				connect apical[119]  (0), 1}
-	apical[116]  connect apical[ 117] (0), 1
-	apical[117]  connect apical[ 118] (0), 1
-	apical[121]  connect apical[ 122] (0), 1
-	apical[122] {connect apical[ 123] (0), 1
-				connect apical[126]  (0), 1}
-	apical[123] {connect apical[ 124] (0), 1
-				connect apical[125]  (0), 1}
-	basal[0] {connect basal[1]  (0), 1
-				connect basal[12]  (0), 1}
-	basal[1] {connect basal[2]  (0), 1
-				connect basal[9]  (0), 1}
-	basal[2] {connect basal[3]  (0), 1
-				connect basal[8]  (0), 1}
-	basal[3] {connect basal[4]  (0), 1
-				connect basal[5]  (0), 1}
-	basal[5] {connect basal[6]  (0), 1
-				connect basal[7]  (0), 1}
-	basal[9] {connect basal[10]  (0), 1
-				connect basal[11]  (0), 1}
-	basal[12] {connect basal[13]  (0), 1
-				connect basal[19]  (0), 1}
-	basal[13]  connect basal[14]  (0), 1
-	basal[14] {connect basal[15]  (0), 1
-				connect basal[18]  (0), 1}
-	basal[15] {connect basal[16]  (0), 1
-				connect basal[17]  (0), 1}
-	basal[20] {connect basal[ 21] (0), 1
-				connect basal[22] (0), 1}
-	basal[23] {connect basal[ 24] (0), 1
-				connect basal[38]  (0), 1}
-	basal[24] {connect basal[ 25] (0), 1
-				connect basal[33]  (0), 1}
-	basal[25] connect basal[ 26] (0), 1
-	basal[26] {connect basal[ 27] (0), 1
-				connect basal[32] (0), 1}
-	basal[27] {connect basal[ 28] (0), 1
-				connect basal[31] (0), 1}
-	basal[28] {connect basal[ 29] (0), 1
-				connect basal[30] (0), 1}
-	basal[33] {connect basal[ 34] (0), 1
-				connect basal[37]  (0), 1}
-	basal[34] {connect basal[ 35] (0), 1
-				connect basal[36]  (0), 1}
-	basal[38] {connect basal[ 39] (0), 1
-				connect basal[40]  (0), 1}
-	basal[41] {connect basal[ 42] (0), 1
-				connect basal[59]  (0), 1}
-	basal[42] {connect basal[ 43] (0), 1
-				connect basal[51]  (0), 1}
-	basal[43] connect basal[ 44] (0), 1
-	basal[44] {connect basal[ 45] (0), 1
-				connect basal[50] (0), 1}
-	basal[45] {connect basal[ 46] (0), 1
-				connect basal[49] (0), 1}
-	basal[46] {connect basal[ 47] (0), 1
-				connect basal[48] (0), 1}
-	basal[51] {connect basal[ 52] (0), 1
-				connect basal[54]  (0), 1}
-	basal[52] connect basal[ 53] (0), 1
-	basal[54] {connect basal[ 55] (0), 1
-				connect basal[58]  (0), 1}
-	basal[55] {connect basal[ 56] (0), 1
-				connect basal[57]  (0), 1}
+	apic[0]   connect apic[ 1]  (0), 1
+	apic[1]   connect apic[ 2]  (0), 1
+	apic[2]  {connect apic[121]  (0), 1
+				connect apic[ 3]  (0), 1}
+	apic[3]   connect apic[ 4]  (0), 1
+	apic[4]   connect apic[ 5]  (0), 1
+	apic[5]  {connect apic[ 6]  (0), 1
+				connect apic[113]  (0), 1}
+	apic[6]  {connect apic[ 7]  (0), 1
+				connect apic[112]  (0), 1}
+	apic[7]  {connect apic[106]  (0), 1
+				connect apic[ 8]  (0), 1}
+	apic[8]  {connect apic[ 9]  (0), 1
+				connect apic[105]  (0), 1}
+	apic[9]  {connect apic[103]  (0), 1
+				connect apic[ 10] (0), 1}
+	apic[10] {connect apic[ 11] (0), 1
+				connect apic[102]  (0), 1}
+	apic[11] {connect apic[101]  (0), 1
+				connect apic[ 12] (0), 1}
+	apic[12] {connect apic[ 13] (0), 1
+				connect apic[90]   (0), 1}
+	apic[13] {connect apic[78]  (0), 1
+				connect apic[ 14] (0), 1}
+	apic[14] {connect apic[76]  (0), 1
+				connect apic[ 15] (0), 1}
+	apic[15] {connect apic[ 16] (0), 1
+				connect apic[64]  (0), 1}
+	apic[16] {connect apic[26]  (0), 1
+				connect apic[ 17] (0), 1}
+	apic[17]  connect apic[ 18] (0), 1
+	apic[18] {connect apic[ 19] (0), 1
+				connect apic[21]  (0), 1}
+	apic[19]  connect apic[ 20] (0), 1
+	apic[21] {connect apic[ 22] (0), 1
+				connect apic[23]  (0), 1}
+	apic[23] {connect apic[ 24] (0), 1
+				connect apic[25]  (0), 1}
+	apic[26]  connect apic[ 27] (0), 1
+	apic[27] {connect apic[ 28] (0), 1
+				connect apic[39]  (0), 1}
+	apic[28]  connect apic[ 29] (0), 1
+	apic[29]  connect apic[ 30] (0), 1
+	apic[30] {connect apic[ 31] (0), 1
+				connect apic[38]  (0), 1}
+	apic[31] {connect apic[ 32] (0), 1
+				connect apic[35]  (0), 1}
+	apic[32] {connect apic[ 33] (0), 1
+				connect apic[34]  (0), 1}
+	apic[35] {connect apic[ 36] (0), 1
+				connect apic[37]  (0), 1}
+	apic[39] {connect apic[ 40] (0), 1
+				connect apic[59]  (0), 1}
+	apic[40] {connect apic[ 41] (0), 1
+				connect apic[50]  (0), 1}
+	apic[41] {connect apic[ 42] (0), 1
+				connect apic[49]  (0), 1}
+	apic[42]  connect apic[ 43] (0), 1
+	apic[43] {connect apic[ 44] (0), 1
+				connect apic[48]  (0), 1}
+	apic[44] {connect apic[ 45] (0), 1
+				connect apic[47]  (0), 1}
+	apic[45]  connect apic[ 46] (0), 1
+	apic[50] {connect apic[ 51] (0), 1
+				connect apic[52]  (0), 1}
+	apic[52] {connect apic[ 53] (0), 1
+				connect apic[56]  (0), 1}
+	apic[53] {connect apic[ 54] (0), 1
+				connect apic[55]  (0), 1}
+	apic[56] {connect apic[ 57] (0), 1
+				connect apic[58]  (0), 1}
+	apic[59] {connect apic[ 60] (0), 1
+				connect apic[61]  (0), 1}
+	apic[61] {connect apic[ 62] (0), 1
+				connect apic[63]  (0), 1}
+	apic[64] {connect apic[ 65] (0), 1
+				connect apic[72]  (0), 1}
+	apic[65] {connect apic[ 66] (0), 1
+				connect apic[71]  (0), 1}
+	apic[66] {connect apic[ 67] (0), 1
+				connect apic[70]  (0), 1}
+	apic[67] {connect apic[ 68] (0), 1
+				connect apic[69]  (0), 1}
+	apic[72]  connect apic[ 73] (0), 1
+	apic[73] {connect apic[ 74] (0), 1
+				connect apic[75]  (0), 1}
+	apic[76]  connect apic[ 77] (0), 1
+	apic[78] {connect apic[ 79] (0), 1
+				connect apic[80]  (0), 1}
+	apic[80] {connect apic[ 81] (0), 1
+				connect apic[89]   (0), 1}
+	apic[81] {connect apic[ 82] (0), 1
+				connect apic[88]   (0), 1}
+	apic[82] {connect apic[ 83] (0), 1
+				connect apic[87]   (0), 1}
+	apic[83] {connect apic[ 84] (0), 1
+				connect apic[85]  (0), 1}
+	apic[85]  connect apic[ 86] (0), 1
+	apic[90]  {connect apic[ 91]  (0), 1
+				connect apic[100]  (0), 1}
+	apic[91]  {connect apic[ 92]  (0), 1
+				connect apic[97]   (0), 1}
+	apic[92]  {connect apic[ 93]  (0), 1
+				connect apic[96]   (0), 1}
+	apic[93]  {connect apic[ 94]  (0), 1
+				connect apic[95]   (0), 1}
+	apic[97]  {connect apic[ 98]  (0), 1
+				connect apic[99]   (0), 1}
+	apic[103]  connect apic[ 104] (0), 1
+	apic[106] {connect apic[ 107] (0), 1
+				connect apic[109]  (0), 1}
+	apic[107]  connect apic[ 108] (0), 1
+	apic[109] {connect apic[ 110] (0), 1
+				connect apic[111]  (0), 1}
+	apic[113] {connect apic[ 114] (0), 1
+				connect apic[120]  (0), 1}
+	apic[114]  connect apic[ 115] (0), 1
+	apic[115] {connect apic[ 116] (0), 1
+				connect apic[119]  (0), 1}
+	apic[116]  connect apic[ 117] (0), 1
+	apic[117]  connect apic[ 118] (0), 1
+	apic[121]  connect apic[ 122] (0), 1
+	apic[122] {connect apic[ 123] (0), 1
+				connect apic[126]  (0), 1}
+	apic[123] {connect apic[ 124] (0), 1
+				connect apic[125]  (0), 1}
+	dend[0] {connect dend[1]  (0), 1
+				connect dend[12]  (0), 1}
+	dend[1] {connect dend[2]  (0), 1
+				connect dend[9]  (0), 1}
+	dend[2] {connect dend[3]  (0), 1
+				connect dend[8]  (0), 1}
+	dend[3] {connect dend[4]  (0), 1
+				connect dend[5]  (0), 1}
+	dend[5] {connect dend[6]  (0), 1
+				connect dend[7]  (0), 1}
+	dend[9] {connect dend[10]  (0), 1
+				connect dend[11]  (0), 1}
+	dend[12] {connect dend[13]  (0), 1
+				connect dend[19]  (0), 1}
+	dend[13]  connect dend[14]  (0), 1
+	dend[14] {connect dend[15]  (0), 1
+				connect dend[18]  (0), 1}
+	dend[15] {connect dend[16]  (0), 1
+				connect dend[17]  (0), 1}
+	dend[20] {connect dend[ 21] (0), 1
+				connect dend[22] (0), 1}
+	dend[23] {connect dend[ 24] (0), 1
+				connect dend[38]  (0), 1}
+	dend[24] {connect dend[ 25] (0), 1
+				connect dend[33]  (0), 1}
+	dend[25] connect dend[ 26] (0), 1
+	dend[26] {connect dend[ 27] (0), 1
+				connect dend[32] (0), 1}
+	dend[27] {connect dend[ 28] (0), 1
+				connect dend[31] (0), 1}
+	dend[28] {connect dend[ 29] (0), 1
+				connect dend[30] (0), 1}
+	dend[33] {connect dend[ 34] (0), 1
+				connect dend[37]  (0), 1}
+	dend[34] {connect dend[ 35] (0), 1
+				connect dend[36]  (0), 1}
+	dend[38] {connect dend[ 39] (0), 1
+				connect dend[40]  (0), 1}
+	dend[41] {connect dend[ 42] (0), 1
+				connect dend[59]  (0), 1}
+	dend[42] {connect dend[ 43] (0), 1
+				connect dend[51]  (0), 1}
+	dend[43] connect dend[ 44] (0), 1
+	dend[44] {connect dend[ 45] (0), 1
+				connect dend[50] (0), 1}
+	dend[45] {connect dend[ 46] (0), 1
+				connect dend[49] (0), 1}
+	dend[46] {connect dend[ 47] (0), 1
+				connect dend[48] (0), 1}
+	dend[51] {connect dend[ 52] (0), 1
+				connect dend[54]  (0), 1}
+	dend[52] connect dend[ 53] (0), 1
+	dend[54] {connect dend[ 55] (0), 1
+				connect dend[58]  (0), 1}
+	dend[55] {connect dend[ 56] (0), 1
+				connect dend[57]  (0), 1}
 }
 
 
-objref all, basal_list, apical_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
+objref all, dend_list, apic_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
 objref pyramidalcell_list, axoaxoniccell_list, bistratifiedcell_list, cckcell_list
 objref ivycell_list, ngfcell_list, olmcell_list, pvbasketcell_list, scacell_list
 objref eccell_list, ca3cell_list, mscell_list
 
 proc append_sections() { local i
 	NumSoma=13
-	NumApical=127
-	NumBasal=60
+	Numapic=127
+	Numdend=60
 	NumAxon=2
 
-	objref all, basal_list, apical_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
+	objref all, dend_list, apic_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
 	objref pyramidalcell_list, axoaxoniccell_list, bistratifiedcell_list, cckcell_list
 	objref ivycell_list, ngfcell_list, olmcell_list, pvbasketcell_list, scacell_list
 	objref eccell_list, ca3cell_list, mscell_list
 
 	all = new SectionList()
-	basal_list = new SectionList()
-	apical_list = new SectionList()
+	dend_list = new SectionList()
+	apic_list = new SectionList()
 	soma_list = new SectionList()
 	axon_list = new SectionList()
 	rad_list = new SectionList()
@@ -312,46 +312,46 @@ proc append_sections() { local i
 	
 	for i=0,NumSoma-1 soma[i] { all.append()
 								soma_list.append()}	
-	for i=0,NumBasal-1 basal[i] { all.append()
-								basal_list.append()			
+	for i=0,Numdend-1 dend[i] { all.append()
+								dend_list.append()			
 								dendrite_list.append()}			
-	for i=0,NumApical-1 apical[i] { all.append()
-								apical_list.append()	
+	for i=0,Numapic-1 apic[i] { all.append()
+								apic_list.append()	
 								dendrite_list.append()}	
 
 
 
-	for i=0, 17 apical[i] { rad_list.append()}
-	for i=26, 28 apical[i] { rad_list.append()}
-	for i=64, 64 apical[i] { rad_list.append()}
-	for i=76, 80 apical[i] { rad_list.append()}
-	for i=90, 126 apical[i] { rad_list.append()}
+	for i=0, 17 apic[i] { rad_list.append()}
+	for i=26, 28 apic[i] { rad_list.append()}
+	for i=64, 64 apic[i] { rad_list.append()}
+	for i=76, 80 apic[i] { rad_list.append()}
+	for i=90, 126 apic[i] { rad_list.append()}
 
-	for i=18, 25 apical[i] { lm_list.append()}
-	for i=29, 63 apical[i] { lm_list.append()}
-	for i=65, 75 apical[i] { lm_list.append()}
-	for i=81, 89 apical[i] { lm_list.append()}
+	for i=18, 25 apic[i] { lm_list.append()}
+	for i=29, 63 apic[i] { lm_list.append()}
+	for i=65, 75 apic[i] { lm_list.append()}
+	for i=81, 89 apic[i] { lm_list.append()}
 
 // precell lists
-	forsec basal_list {pyramidalcell_list.append()}
+	forsec dend_list {pyramidalcell_list.append()}
 	forsec axon_list {axoaxoniccell_list.append()}
-	forsec basal_list {bistratifiedcell_list.append()}
+	forsec dend_list {bistratifiedcell_list.append()}
 	forsec rad_list {bistratifiedcell_list.append()}
 	forsec soma_list {cckcell_list.append()}
-	forsec basal_list {ivycell_list.append()}
+	forsec dend_list {ivycell_list.append()}
 	forsec rad_list {ivycell_list.append()}
 	forsec lm_list {ngfcell_list.append()}
 	forsec lm_list {olmcell_list.append()}
 	forsec soma_list {pvbasketcell_list.append()}
-	forsec basal_list {scacell_list.append()}
+	forsec dend_list {scacell_list.append()}
 	forsec rad_list {scacell_list.append()}
 	forsec lm_list {eccell_list.append()}
 	forsec lm_list {eccell_list.append()}
-	forsec lm_list {eccell_list.append()} // append the same list 3 times to weight it more heavily against the basal list for synapse choice for eccells
+	forsec lm_list {eccell_list.append()} // append the same list 3 times to weight it more heavily against the dend list for synapse choice for eccells
 	forsec rad_list {ca3cell_list.append()}
 	forsec rad_list {mscell_list.append()}
-	forsec basal_list {eccell_list.append()}
-	forsec basal_list {ca3cell_list.append()}
+	forsec dend_list {eccell_list.append()}
+	forsec dend_list {ca3cell_list.append()}
 }
 
 
@@ -372,199 +372,199 @@ proc size_sections1() {
 	soma[11]  {nseg=1 diam= 4.8  L= .6500001  }
 	soma[12]  {nseg=1 diam= 4.2  L= 1.947434  }
 
-	apical[0]   {nseg=1 diam= 3.8  L= 2.715308  }
-	apical[1]   {nseg=1 diam= 3.6  L= 5.401713  }
-	apical[2]   {nseg=1 diam= 3  L= 3.876953  }
-	apical[3]   {nseg=1 diam= 3  L= 4.32302  }
-	apical[4]   {nseg=1 diam= 2.2  L= 9.503437  }
-	apical[5]   {nseg=2 diam= 2  L= 45.0123  }
-	apical[6]   {nseg=1 diam= 2  L= 31.20716  }
-	apical[7]   {nseg=1 diam= 2  L= 22.61171  }
-	apical[8]   {nseg=2 diam= 2  L= 37.90814  }
-	apical[9]   {nseg=1 diam= 2  L= 1.899714  }
-	apical[10]  {nseg=1 diam= 2  L= 2.305321  }
-	apical[11]  {nseg=1 diam= 2  L= 3.767573  }
-	apical[12]  {nseg=2 diam= 2  L= 33.49711  }
-	apical[13]  {nseg=10 diam= 2  L= 70.09814  }
-	apical[14]  {nseg=2 diam= 2  L= 40.81264  }
-	apical[15]  {nseg=1 diam= 2  L= 15.2801  }
-	apical[16]  {nseg=1 diam= 2  L= 17.47857  }
-	apical[17]  {nseg=8 diam= 1  L= 108.7753  }
-	apical[18]  {nseg=1 diam= .8  L= 10.96036  }
-	apical[19]  {nseg=2 diam= .8  L= 16.21915  }
-	apical[20]  {nseg=2 diam= .4  L= 26.14653  }
-	apical[21]  {nseg=6 diam= .4  L= 119.6609  }
-	apical[22]  {nseg=3 diam= .4  L= 39.18561  }
-	apical[23]  {nseg=3 diam= .4  L= 34.66425  }
-	apical[24]  {nseg=2 diam= .4  L= 31.36501  }
-	apical[25]  {nseg=2 diam= .4  L= 29.33217  }
-	apical[26]  {nseg=2 diam= 2  L= 31.1963  }
-	apical[27]  {nseg=4 diam= 1.4  L= 40.56636  }
-	apical[28]  {nseg=1 diam= 1.4  L= 4.73629  }
-	apical[29]  {nseg=5 diam= .8  L= 57.43425  }
-	apical[30]  {nseg=1 diam= .4  L= 21.68407  }
-	apical[31]  {nseg=1 diam= .4  L= 20.0452  }
-	apical[32]  {nseg=3 diam= .4  L= 64.84853  }
-	apical[33]  {nseg=3 diam= .4  L= 58.52066  }
-	apical[34]  {nseg=10 diam= .4  L= 230.365  }
-	apical[35]  {nseg=2 diam= .4  L= 37.58863  }
-	apical[36]  {nseg=4 diam= .4  L= 77.22144  }
-	apical[37]  {nseg=5 diam= .4  L= 112.0059  }
-	apical[38]  {nseg=2 diam= .4  L= 37.58242  }
-	apical[39]  {nseg=8 diam= .8  L= 89.90406  }
-	apical[40]  {nseg=1 diam= .8  L= 5.726318  }
-	apical[41]  {nseg=1 diam= .8  L= 1.514942  }
-	apical[42]  {nseg=2 diam= .8  L= 23.88437  }
-	apical[43]  {nseg=1 diam= .4  L= 3.340797  }
-	apical[44]  {nseg=1 diam= .4  L= 3.250262  }
-	apical[45]  {nseg=4 diam= .4  L= 86.1567  }
-	apical[46]  {nseg=3 diam= .4  L= 46.10009  }
-	apical[47]  {nseg=1 diam= .4  L= 23.62396  }
-	apical[48]  {nseg=4 diam= .4  L= 78.09839  }
-	apical[49]  {nseg=2 diam= .4  L= 41.05293  }
-	apical[50]  {nseg=3 diam= .4  L= 64.45201  }
-	apical[51]  {nseg=6 diam= .4  L= 135.1048  }
-	apical[52]  {nseg=4 diam= .4  L= 70.09399  }
-	apical[53]  {nseg=1 diam= .4  L= 11.29383  }
-	apical[54]  {nseg=3 diam= .4  L= 57.12379  }
-	apical[55]  {nseg=3 diam= .4  L= 51.23798  }
-	apical[56]  {nseg=1 diam= .4  L= .226719  }
-	apical[57]  {nseg=2 diam= .4  L= 42.9783  }
-	apical[58]  {nseg=6 diam= .4  L= 130.2097  }
-	apical[59]  {nseg=2 diam= .4  L= 26.79343  }
-	apical[60]  {nseg=5 diam= .4  L= 125.4406  }
-	apical[61]  {nseg=2 diam= .4  L= 32.70949  }
-	apical[62]  {nseg=2 diam= .4  L= 46.61235  }
-	apical[63]  {nseg=3 diam= .4  L= 55.72121  }
-	apical[64]  {nseg=5 diam= .4  L= 116.3788  }
-	apical[65]  {nseg=1 diam= .4  L= 13.57025  }
-	apical[66]  {nseg=6 diam= .4  L= 118.638  }
-	apical[67]  {nseg=1 diam= .4  L= 24.19888  }
-	apical[68]  {nseg=4 diam= .4  L= 96.23538  }
-	apical[69]  {nseg=3 diam= .4  L= 59.93812  }
-	apical[70]  {nseg=2 diam= .4  L= 64.90414  }
-	apical[71]  {nseg=1 diam= .4  L= .365519  }
-	apical[72]  {nseg=5 diam= .4  L= 118.724  }
-	apical[73]  {nseg=1 diam= .4  L= 5.153612  }
-	apical[74]  {nseg=7 diam= .4  L= 159.0847  }
-	apical[75]  {nseg=3 diam= .4  L= 65.16338  }
-	apical[76]  {nseg=3 diam= .8  L= 32.91693  }
-	apical[77]  {nseg=4 diam= .4  L= 84.05488  }
-	apical[78]  {nseg=3 diam= .8  L= 49.03632  }
-	apical[79]  {nseg=3 diam= .4  L= 65.3413  }
-	apical[80]  {nseg=7 diam= .4  L= 144.8597  }
-	apical[81]  {nseg=1 diam= .4  L= 2.782626  }
-	apical[82]  {nseg=1 diam= .4  L= 10.63182  }
-	apical[83]  {nseg=1 diam= .4  L= 14.79619  }
-	apical[84]  {nseg=1 diam= .4  L= 24.52155  }
-	apical[85]  {nseg=1 diam= .4  L= 19.95786  }
-	apical[86]  {nseg=1 diam= .4  L= 22.937  }
-	apical[87]   {nseg=1 diam= .4  L= 29.18237  }
-	apical[88]   {nseg=4 diam= .4  L= 93.45203  }
-	apical[89]   {nseg=3 diam= .4  L= 82.16525  }
-	apical[90]   {nseg=2 diam= 1  L= 28.88242  }
-	apical[91]   {nseg=1 diam= 1  L= 3.312038  }
-	apical[92]   {nseg=2 diam= 1  L= 31.43214  }
-	apical[93]   {nseg=4 diam= 1  L= 65.21848  }
-	apical[94]   {nseg=4 diam= 1  L= 65.93275  }
-	apical[95]   {nseg=1 diam= .4  L= 2.210091  }
+	apic[0]   {nseg=1 diam= 3.8  L= 2.715308  }
+	apic[1]   {nseg=1 diam= 3.6  L= 5.401713  }
+	apic[2]   {nseg=1 diam= 3  L= 3.876953  }
+	apic[3]   {nseg=1 diam= 3  L= 4.32302  }
+	apic[4]   {nseg=1 diam= 2.2  L= 9.503437  }
+	apic[5]   {nseg=2 diam= 2  L= 45.0123  }
+	apic[6]   {nseg=1 diam= 2  L= 31.20716  }
+	apic[7]   {nseg=1 diam= 2  L= 22.61171  }
+	apic[8]   {nseg=2 diam= 2  L= 37.90814  }
+	apic[9]   {nseg=1 diam= 2  L= 1.899714  }
+	apic[10]  {nseg=1 diam= 2  L= 2.305321  }
+	apic[11]  {nseg=1 diam= 2  L= 3.767573  }
+	apic[12]  {nseg=2 diam= 2  L= 33.49711  }
+	apic[13]  {nseg=10 diam= 2  L= 70.09814  }
+	apic[14]  {nseg=2 diam= 2  L= 40.81264  }
+	apic[15]  {nseg=1 diam= 2  L= 15.2801  }
+	apic[16]  {nseg=1 diam= 2  L= 17.47857  }
+	apic[17]  {nseg=8 diam= 1  L= 108.7753  }
+	apic[18]  {nseg=1 diam= .8  L= 10.96036  }
+	apic[19]  {nseg=2 diam= .8  L= 16.21915  }
+	apic[20]  {nseg=2 diam= .4  L= 26.14653  }
+	apic[21]  {nseg=6 diam= .4  L= 119.6609  }
+	apic[22]  {nseg=3 diam= .4  L= 39.18561  }
+	apic[23]  {nseg=3 diam= .4  L= 34.66425  }
+	apic[24]  {nseg=2 diam= .4  L= 31.36501  }
+	apic[25]  {nseg=2 diam= .4  L= 29.33217  }
+	apic[26]  {nseg=2 diam= 2  L= 31.1963  }
+	apic[27]  {nseg=4 diam= 1.4  L= 40.56636  }
+	apic[28]  {nseg=1 diam= 1.4  L= 4.73629  }
+	apic[29]  {nseg=5 diam= .8  L= 57.43425  }
+	apic[30]  {nseg=1 diam= .4  L= 21.68407  }
+	apic[31]  {nseg=1 diam= .4  L= 20.0452  }
+	apic[32]  {nseg=3 diam= .4  L= 64.84853  }
+	apic[33]  {nseg=3 diam= .4  L= 58.52066  }
+	apic[34]  {nseg=10 diam= .4  L= 230.365  }
+	apic[35]  {nseg=2 diam= .4  L= 37.58863  }
+	apic[36]  {nseg=4 diam= .4  L= 77.22144  }
+	apic[37]  {nseg=5 diam= .4  L= 112.0059  }
+	apic[38]  {nseg=2 diam= .4  L= 37.58242  }
+	apic[39]  {nseg=8 diam= .8  L= 89.90406  }
+	apic[40]  {nseg=1 diam= .8  L= 5.726318  }
+	apic[41]  {nseg=1 diam= .8  L= 1.514942  }
+	apic[42]  {nseg=2 diam= .8  L= 23.88437  }
+	apic[43]  {nseg=1 diam= .4  L= 3.340797  }
+	apic[44]  {nseg=1 diam= .4  L= 3.250262  }
+	apic[45]  {nseg=4 diam= .4  L= 86.1567  }
+	apic[46]  {nseg=3 diam= .4  L= 46.10009  }
+	apic[47]  {nseg=1 diam= .4  L= 23.62396  }
+	apic[48]  {nseg=4 diam= .4  L= 78.09839  }
+	apic[49]  {nseg=2 diam= .4  L= 41.05293  }
+	apic[50]  {nseg=3 diam= .4  L= 64.45201  }
+	apic[51]  {nseg=6 diam= .4  L= 135.1048  }
+	apic[52]  {nseg=4 diam= .4  L= 70.09399  }
+	apic[53]  {nseg=1 diam= .4  L= 11.29383  }
+	apic[54]  {nseg=3 diam= .4  L= 57.12379  }
+	apic[55]  {nseg=3 diam= .4  L= 51.23798  }
+	apic[56]  {nseg=1 diam= .4  L= .226719  }
+	apic[57]  {nseg=2 diam= .4  L= 42.9783  }
+	apic[58]  {nseg=6 diam= .4  L= 130.2097  }
+	apic[59]  {nseg=2 diam= .4  L= 26.79343  }
+	apic[60]  {nseg=5 diam= .4  L= 125.4406  }
+	apic[61]  {nseg=2 diam= .4  L= 32.70949  }
+	apic[62]  {nseg=2 diam= .4  L= 46.61235  }
+	apic[63]  {nseg=3 diam= .4  L= 55.72121  }
+	apic[64]  {nseg=5 diam= .4  L= 116.3788  }
+	apic[65]  {nseg=1 diam= .4  L= 13.57025  }
+	apic[66]  {nseg=6 diam= .4  L= 118.638  }
+	apic[67]  {nseg=1 diam= .4  L= 24.19888  }
+	apic[68]  {nseg=4 diam= .4  L= 96.23538  }
+	apic[69]  {nseg=3 diam= .4  L= 59.93812  }
+	apic[70]  {nseg=2 diam= .4  L= 64.90414  }
+	apic[71]  {nseg=1 diam= .4  L= .365519  }
+	apic[72]  {nseg=5 diam= .4  L= 118.724  }
+	apic[73]  {nseg=1 diam= .4  L= 5.153612  }
+	apic[74]  {nseg=7 diam= .4  L= 159.0847  }
+	apic[75]  {nseg=3 diam= .4  L= 65.16338  }
+	apic[76]  {nseg=3 diam= .8  L= 32.91693  }
+	apic[77]  {nseg=4 diam= .4  L= 84.05488  }
+	apic[78]  {nseg=3 diam= .8  L= 49.03632  }
+	apic[79]  {nseg=3 diam= .4  L= 65.3413  }
+	apic[80]  {nseg=7 diam= .4  L= 144.8597  }
+	apic[81]  {nseg=1 diam= .4  L= 2.782626  }
+	apic[82]  {nseg=1 diam= .4  L= 10.63182  }
+	apic[83]  {nseg=1 diam= .4  L= 14.79619  }
+	apic[84]  {nseg=1 diam= .4  L= 24.52155  }
+	apic[85]  {nseg=1 diam= .4  L= 19.95786  }
+	apic[86]  {nseg=1 diam= .4  L= 22.937  }
+	apic[87]   {nseg=1 diam= .4  L= 29.18237  }
+	apic[88]   {nseg=4 diam= .4  L= 93.45203  }
+	apic[89]   {nseg=3 diam= .4  L= 82.16525  }
+	apic[90]   {nseg=2 diam= 1  L= 28.88242  }
+	apic[91]   {nseg=1 diam= 1  L= 3.312038  }
+	apic[92]   {nseg=2 diam= 1  L= 31.43214  }
+	apic[93]   {nseg=4 diam= 1  L= 65.21848  }
+	apic[94]   {nseg=4 diam= 1  L= 65.93275  }
+	apic[95]   {nseg=1 diam= .4  L= 2.210091  }
 }
 
 proc size_sections2() {
-	apical[96]   {nseg=4 diam= .4  L= 80.05907  }
-	apical[97]   {nseg=1 diam= .4  L= 12.09364  }
-	apical[98]   {nseg=2 diam= .4  L= 40.26765  }
-	apical[99]   {nseg=2 diam= .4  L= 51.40726  }
-	apical[100]  {nseg=5 diam= .4  L= 113.2667  }
-	apical[101]  {nseg=6 diam= .4  L= 149.6538  }
-	apical[102]  {nseg=12 diam= .4  L= 271.828  }
-	apical[103]  {nseg=1 diam= .8  L= 19.2613  }
-	apical[104]  {nseg=5 diam= .4  L= 94.12336  }
-	apical[105]  {nseg=8 diam= .4  L= 170.9137  }
-	apical[106]  {nseg=1 diam= .8  L= 5.102267  }
-	apical[107]  {nseg=1 diam= .8  L= 10.26147  }
-	apical[108]  {nseg=6 diam= .4  L= 117.1293  }
-	apical[109]  {nseg=2 diam= .8  L= 30.43381  }
-	apical[110]  {nseg=4 diam= .4  L= 80.42423  }
-	apical[111]  {nseg=10 diam= .4  L= 202.9251  }
-	apical[112]  {nseg=7 diam= .4  L= 155.1176  }
-	apical[113]  {nseg=1 diam= 1.4  L= 11.20985  }
-	apical[114]  {nseg=1 diam= 1.4  L= 8.052182  }
-	apical[115]  {nseg=1 diam= .4  L= 17.14739  }
-	apical[116]  {nseg=1 diam= .4  L= 17.07239  }
-	apical[117]  {nseg=1 diam= .4  L= 3.802383  }
-	apical[118]  {nseg=4 diam= .4  L= 79.13516  }
-	apical[119]  {nseg=7 diam= .4  L= 132.4294  }
-	apical[120]  {nseg=1 diam= .8  L= 7.493482  }
-	apical[121]  {nseg=1 diam= .8  L= 16.02206  }
-	apical[122]  {nseg=1 diam= .4  L= 2.194287  }
-	apical[123]  {nseg=1 diam= .4  L= 14.77226  }
-	apical[124]  {nseg=4 diam= .4  L= 85.29885  }
-	apical[125]  {nseg=5 diam= .4  L= 108.0732  }
-	apical[126]  {nseg=4 diam= .4  L= 89.57475  }
+	apic[96]   {nseg=4 diam= .4  L= 80.05907  }
+	apic[97]   {nseg=1 diam= .4  L= 12.09364  }
+	apic[98]   {nseg=2 diam= .4  L= 40.26765  }
+	apic[99]   {nseg=2 diam= .4  L= 51.40726  }
+	apic[100]  {nseg=5 diam= .4  L= 113.2667  }
+	apic[101]  {nseg=6 diam= .4  L= 149.6538  }
+	apic[102]  {nseg=12 diam= .4  L= 271.828  }
+	apic[103]  {nseg=1 diam= .8  L= 19.2613  }
+	apic[104]  {nseg=5 diam= .4  L= 94.12336  }
+	apic[105]  {nseg=8 diam= .4  L= 170.9137  }
+	apic[106]  {nseg=1 diam= .8  L= 5.102267  }
+	apic[107]  {nseg=1 diam= .8  L= 10.26147  }
+	apic[108]  {nseg=6 diam= .4  L= 117.1293  }
+	apic[109]  {nseg=2 diam= .8  L= 30.43381  }
+	apic[110]  {nseg=4 diam= .4  L= 80.42423  }
+	apic[111]  {nseg=10 diam= .4  L= 202.9251  }
+	apic[112]  {nseg=7 diam= .4  L= 155.1176  }
+	apic[113]  {nseg=1 diam= 1.4  L= 11.20985  }
+	apic[114]  {nseg=1 diam= 1.4  L= 8.052182  }
+	apic[115]  {nseg=1 diam= .4  L= 17.14739  }
+	apic[116]  {nseg=1 diam= .4  L= 17.07239  }
+	apic[117]  {nseg=1 diam= .4  L= 3.802383  }
+	apic[118]  {nseg=4 diam= .4  L= 79.13516  }
+	apic[119]  {nseg=7 diam= .4  L= 132.4294  }
+	apic[120]  {nseg=1 diam= .8  L= 7.493482  }
+	apic[121]  {nseg=1 diam= .8  L= 16.02206  }
+	apic[122]  {nseg=1 diam= .4  L= 2.194287  }
+	apic[123]  {nseg=1 diam= .4  L= 14.77226  }
+	apic[124]  {nseg=4 diam= .4  L= 85.29885  }
+	apic[125]  {nseg=5 diam= .4  L= 108.0732  }
+	apic[126]  {nseg=4 diam= .4  L= 89.57475  }
 }
 
 proc size_sections3() {
-	basal[0]  {nseg=1 diam= .8  L= 2.888482  }
-	basal[1]  {nseg=1 diam= .8  L= 12.67608  }
-	basal[2]  {nseg=1 diam= .4  L= 6.226819  }
-	basal[3]  {nseg=2 diam= .4  L= 28.07395  }
-	basal[4]  {nseg=1 diam= .4  L= 19.26636  }
-	basal[5]  {nseg=1 diam= .4  L= 13.94479  }
-	basal[6]  {nseg=5 diam= .4  L= 110.2079  }
-	basal[7]  {nseg=4 diam= .4  L= 75.98547  }
-	basal[8]  {nseg=8 diam= .4  L= 153.798  }
-	basal[9]  {nseg=4 diam= .4  L= 91.32814  }
-	basal[10]  {nseg=3 diam= .4  L= 72.40762  }
-	basal[11]  {nseg=3 diam= .4  L= 68.55269  }
-	basal[12]  {nseg=1 diam= .8  L= 16.80424  }
-	basal[13]  {nseg=1 diam= .8  L= 14.56381  }
-	basal[14]  {nseg=1 diam= .4  L= .4899998  }
-	basal[15]  {nseg=1 diam= .4  L= 5.744193  }
-	basal[16]  {nseg=4 diam= .4  L= 116.2063  }
-	basal[17]  {nseg=3 diam= .4  L= 60.7986  }
-	basal[18]  {nseg=7 diam= .4  L= 140.8884  }
-	basal[19]  {nseg=4 diam= .4  L= 82.97742  }
-	basal[20] {nseg=2 diam= .4  L= 36.26253  }
-	basal[21] {nseg=5 diam= .4  L= 100.4919  }
-	basal[22] {nseg=3 diam= .4  L= 72.16766  }
-	basal[23] {nseg=1 diam= 1  L= 12.02422  }
-	basal[24] {nseg=1 diam= .8  L= 4.843154  }
-	basal[25] {nseg=1 diam= .8  L= 3.307597  }
-	basal[26] {nseg=1 diam= .4  L= 11.31487  }
-	basal[27] {nseg=1 diam= .4  L= 25.26186  }
-	basal[28] {nseg=1 diam= .4  L= 26.09189  }
-	basal[29] {nseg=3 diam= .4  L= 64  }
-	basal[30] {nseg=3 diam= .4  L= 70  }
-	basal[31] {nseg=4 diam= .4  L= 81.94038  }
-	basal[32] {nseg=7 diam= .4  L= 157.9888  }
-	basal[33]  {nseg=1 diam= .4  L= 12.65634  }
-	basal[34]  {nseg=2 diam= .4  L= 47.59445  }
-	basal[35]  {nseg=4 diam= .4  L= 87.35556  }
-	basal[36]  {nseg=5 diam= .4  L= 92.50491  }
-	basal[37]  {nseg=1 diam= .4  L= 21.87688  }
-	basal[38]  {nseg=4 diam= .4  L= 86.62627  }
-	basal[39]  {nseg=3 diam= .4  L= 74.35841  }
-	basal[40]  {nseg=4 diam= .4  L= 92.61662  }
-	basal[41] {nseg=1 diam= 1  L= 9.526773  }
-	basal[42] {nseg=1 diam= 1  L= 3.523762  }
-	basal[43] {nseg=1 diam= .8  L= 11.17033  }
-	basal[44] {nseg=1 diam= .4  L= 5.654395  }
-	basal[45] {nseg=1 diam= .4  L= 10.01039  }
-	basal[46] {nseg=1 diam= .4  L= 21.26989  }
-	basal[47] {nseg=2 diam= .4  L= 38.8982  }
-	basal[48] {nseg=6 diam= .4  L= 125.4449  }
-	basal[49] {nseg=7 diam= .4  L= 137.2615  }
-	basal[50] {nseg=3 diam= .4  L= 66.48241  }
-	basal[51]  {nseg=1 diam= 1  L= .5340415  }
-	basal[52]  {nseg=1 diam= 1  L= 7.411953  }
-	basal[53]  {nseg=4 diam= .4  L= 80.27492  }
-	basal[54]  {nseg=1 diam= .8  L= 11.25394  }
-	basal[55]  {nseg=1 diam= .4  L= 7.328401  }
-	basal[56]  {nseg=5 diam= .4  L= 100.9536  }
-	basal[57]  {nseg=2 diam= .4  L= 32.70675  }
-	basal[58]  {nseg=8 diam= .4  L= 165.4767  }
-	basal[59]  {nseg=8 diam= .4  L= 161.9148  }	
+	dend[0]  {nseg=1 diam= .8  L= 2.888482  }
+	dend[1]  {nseg=1 diam= .8  L= 12.67608  }
+	dend[2]  {nseg=1 diam= .4  L= 6.226819  }
+	dend[3]  {nseg=2 diam= .4  L= 28.07395  }
+	dend[4]  {nseg=1 diam= .4  L= 19.26636  }
+	dend[5]  {nseg=1 diam= .4  L= 13.94479  }
+	dend[6]  {nseg=5 diam= .4  L= 110.2079  }
+	dend[7]  {nseg=4 diam= .4  L= 75.98547  }
+	dend[8]  {nseg=8 diam= .4  L= 153.798  }
+	dend[9]  {nseg=4 diam= .4  L= 91.32814  }
+	dend[10]  {nseg=3 diam= .4  L= 72.40762  }
+	dend[11]  {nseg=3 diam= .4  L= 68.55269  }
+	dend[12]  {nseg=1 diam= .8  L= 16.80424  }
+	dend[13]  {nseg=1 diam= .8  L= 14.56381  }
+	dend[14]  {nseg=1 diam= .4  L= .4899998  }
+	dend[15]  {nseg=1 diam= .4  L= 5.744193  }
+	dend[16]  {nseg=4 diam= .4  L= 116.2063  }
+	dend[17]  {nseg=3 diam= .4  L= 60.7986  }
+	dend[18]  {nseg=7 diam= .4  L= 140.8884  }
+	dend[19]  {nseg=4 diam= .4  L= 82.97742  }
+	dend[20] {nseg=2 diam= .4  L= 36.26253  }
+	dend[21] {nseg=5 diam= .4  L= 100.4919  }
+	dend[22] {nseg=3 diam= .4  L= 72.16766  }
+	dend[23] {nseg=1 diam= 1  L= 12.02422  }
+	dend[24] {nseg=1 diam= .8  L= 4.843154  }
+	dend[25] {nseg=1 diam= .8  L= 3.307597  }
+	dend[26] {nseg=1 diam= .4  L= 11.31487  }
+	dend[27] {nseg=1 diam= .4  L= 25.26186  }
+	dend[28] {nseg=1 diam= .4  L= 26.09189  }
+	dend[29] {nseg=3 diam= .4  L= 64  }
+	dend[30] {nseg=3 diam= .4  L= 70  }
+	dend[31] {nseg=4 diam= .4  L= 81.94038  }
+	dend[32] {nseg=7 diam= .4  L= 157.9888  }
+	dend[33]  {nseg=1 diam= .4  L= 12.65634  }
+	dend[34]  {nseg=2 diam= .4  L= 47.59445  }
+	dend[35]  {nseg=4 diam= .4  L= 87.35556  }
+	dend[36]  {nseg=5 diam= .4  L= 92.50491  }
+	dend[37]  {nseg=1 diam= .4  L= 21.87688  }
+	dend[38]  {nseg=4 diam= .4  L= 86.62627  }
+	dend[39]  {nseg=3 diam= .4  L= 74.35841  }
+	dend[40]  {nseg=4 diam= .4  L= 92.61662  }
+	dend[41] {nseg=1 diam= 1  L= 9.526773  }
+	dend[42] {nseg=1 diam= 1  L= 3.523762  }
+	dend[43] {nseg=1 diam= .8  L= 11.17033  }
+	dend[44] {nseg=1 diam= .4  L= 5.654395  }
+	dend[45] {nseg=1 diam= .4  L= 10.01039  }
+	dend[46] {nseg=1 diam= .4  L= 21.26989  }
+	dend[47] {nseg=2 diam= .4  L= 38.8982  }
+	dend[48] {nseg=6 diam= .4  L= 125.4449  }
+	dend[49] {nseg=7 diam= .4  L= 137.2615  }
+	dend[50] {nseg=3 diam= .4  L= 66.48241  }
+	dend[51]  {nseg=1 diam= 1  L= .5340415  }
+	dend[52]  {nseg=1 diam= 1  L= 7.411953  }
+	dend[53]  {nseg=4 diam= .4  L= 80.27492  }
+	dend[54]  {nseg=1 diam= .8  L= 11.25394  }
+	dend[55]  {nseg=1 diam= .4  L= 7.328401  }
+	dend[56]  {nseg=5 diam= .4  L= 100.9536  }
+	dend[57]  {nseg=2 diam= .4  L= 32.70675  }
+	dend[58]  {nseg=8 diam= .4  L= 165.4767  }
+	dend[59]  {nseg=8 diam= .4  L= 161.9148  }	
 }
 
 
@@ -583,8 +583,8 @@ proc set_nseg() {
 
 proc mechinit() {
 	NumSoma=13
-	NumApical=127
-	NumBasal=60
+	Numapic=127
+	Numdend=60
 	NumAxon=2
 
 	Rm = 28000 // 5555 // 
@@ -645,7 +645,7 @@ proc insert_mechs() {
 		insert pas e_pas=eleakval g_pas = 1/RmSoma Ra=RaSoma cm=CmSoma
 	}
 
-	for i=0,NumBasal-1 basal[i] {
+	for i=0,Numdend-1 dend[i] {
 		insert ch_Navp    gmax_ch_Navp=gNav   
 		ar2_ch_Navp=1
 		insert ch_Kdrp gmax_ch_Kdrp=gKdr 
@@ -653,7 +653,7 @@ proc insert_mechs() {
 		insert pas e_pas=eleakval g_pas = 1/RmDend Ra=RaAll cm=CmDend
 	}
 
-	for i=0,NumApical-1 apical[i] {
+	for i=0,Numapic-1 apic[i] {
 		insert pas e_pas=eleakval g_pas = 1/RmDend Ra=RaAll  cm=CmDend
 		if (diam>0.5 && distance(0.5)<500) {
 			insert ch_HCNp gmax_ch_HCNp = gHCN

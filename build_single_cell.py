@@ -42,19 +42,12 @@ net = NetworkBuilder("biophysical")
 #        morphology=None)
 
 #PYR
-
 net.add_nodes(
         mem_potential='e',
         model_type='biophysical',
         model_template='hoc:poolosyncell',
         morphology=None)
 
-#from tylers model
-#net.add_nodes(
-#              model_type='biophysical',
-#              model_template='hoc:CA3PyramidalCell',
-#              morphology='blank.swc'
-#              )
 
 net.build()
 net.save_nodes(output_dir='network')

@@ -45,7 +45,7 @@ net = NetworkBuilder("biophysical")
 net.add_nodes(
         mem_potential='e',
         model_type='biophysical',
-        model_template='hoc:poolosyncell',
+        model_template='hoc:pyramidalcell',
         morphology=None)
 
 
@@ -59,7 +59,7 @@ build_env_bionet(base_dir='./',
                 current_clamp={
                     'amp':.300,
                     'delay': 500,
-                    'duration':1000
+                    'duration':600
                 },
                 components_dir='biophys_components',
                 compile_mechanisms=True)

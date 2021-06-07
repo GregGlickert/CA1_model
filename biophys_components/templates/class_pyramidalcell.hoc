@@ -1,4 +1,4 @@
-begintemplate poolosyncell
+begintemplate pyramidalcell
 
 // public variables
 public is_art, gid, randi, Vrest
@@ -771,4 +771,4 @@ proc define_synapses() {
 	}
 }
 */
-endtemplate poolosyncell
+endtemplate pyramidalcell

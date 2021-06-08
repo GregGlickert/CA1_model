@@ -54,11 +54,11 @@ net.save_nodes(output_dir='network')
 from bmtk.utils.sim_setup import build_env_bionet
 build_env_bionet(base_dir='./',
                 network_dir='./network',
-                tstop=1700.0, dt=0.1,
+                tstop=1000.0, dt=0.1,
                 report_vars=['v'],
                 current_clamp={
                     'amp':.300,
-                    'delay': 500,
+                    'delay': 100,
                     'duration':600
                 },
                 components_dir='biophys_components',

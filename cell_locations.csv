@@ -1,0 +1,15 @@
+,Cell type,X location,Y location,Z location
+0,AAC in SO layer,900,800,400
+1,CCK in SO layer,1140,120,300
+2,OLM in SO layer,1080,480,400
+3,PV in SO layer,140,860,320
+4,Pyr in SP layer,860,200,240
+5,AAC in SP layer,920,900,280
+6,CCK in SP layer,1360,80,260
+7,PV in SP layer,1040,220,260
+8,AAC in SR layer,1360,860,160
+9,CCK in SR layer,1080,1020,120
+10,NGF in SR layer,720,1120,160
+11,PV in SR layer,200,440,160
+12,CCK in SLM layer,820,340,60
+13,NGF in SLM layer,840,860,20

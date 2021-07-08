@@ -6,7 +6,7 @@ public init, topol, basic_shape, subsets, geom, biophys
 public pre_list, connect_pre
 
 public soma, apic, dend, axon
-public all, dend_list, apic_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
+public all, dend_list, apical, somatic, axonal, rad_list, lm_list, dendrite_list
 public x, y, z, position, myroot, Vrest
 
 public pyramidalcell_list, axoaxoniccell_list, bistratifiedcell_list, cckcell_list
@@ -267,7 +267,7 @@ proc connect_sections() {
 }
 
 
-objref all, dend_list, apic_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
+objref all, dend_list, apical, somatic, axonal, rad_list, lm_list, dendrite_list
 objref pyramidalcell_list, axoaxoniccell_list, bistratifiedcell_list, cckcell_list
 objref ivycell_list, ngfcell_list, olmcell_list, pvbasketcell_list, scacell_list
 objref eccell_list, ca3cell_list, mscell_list
@@ -278,16 +278,16 @@ proc append_sections() { local i
 	Numdend=60
 	NumAxon=2
 
-	objref all, dend_list, apic_list, soma_list, axon_list, rad_list, lm_list, dendrite_list
+	objref all, dend_list, apical, somatic, axonal, rad_list, lm_list, dendrite_list
 	objref pyramidalcell_list, axoaxoniccell_list, bistratifiedcell_list, cckcell_list
 	objref ivycell_list, ngfcell_list, olmcell_list, pvbasketcell_list, scacell_list
 	objref eccell_list, ca3cell_list, mscell_list
 
 	all = new SectionList()
 	dend_list = new SectionList()
-	apic_list = new SectionList()
-	soma_list = new SectionList()
-	axon_list = new SectionList()
+	apical = new SectionList()
+	somatic = new SectionList()
+	axonal = new SectionList()
 	rad_list = new SectionList()
 	lm_list = new SectionList()
 	dendrite_list = new SectionList()
@@ -306,17 +306,17 @@ proc append_sections() { local i
 	mscell_list = new SectionList()
 
 	axon[1] all.append()
-	axon[1] axon_list.append()
+	axon[1] axonal.append()
 	axon[0] all.append()
-	axon[0] axon_list.append()
+	axon[0] axonal.append()
 	
 	for i=0,NumSoma-1 soma[i] { all.append()
-								soma_list.append()}	
+								somatic.append()}	
 	for i=0,Numdend-1 dend[i] { all.append()
 								dend_list.append()			
 								dendrite_list.append()}			
 	for i=0,Numapic-1 apic[i] { all.append()
-								apic_list.append()	
+								apical.append()	
 								dendrite_list.append()}	
 
 
@@ -334,15 +334,15 @@ proc append_sections() { local i
 
 // precell lists
 	forsec dend_list {pyramidalcell_list.append()}
-	forsec axon_list {axoaxoniccell_list.append()}
+	forsec axonal {axoaxoniccell_list.append()}
 	forsec dend_list {bistratifiedcell_list.append()}
 	forsec rad_list {bistratifiedcell_list.append()}
-	forsec soma_list {cckcell_list.append()}
+	forsec somatic {cckcell_list.append()}
 	forsec dend_list {ivycell_list.append()}
 	forsec rad_list {ivycell_list.append()}
 	forsec lm_list {ngfcell_list.append()}
 	forsec lm_list {olmcell_list.append()}
-	forsec soma_list {pvbasketcell_list.append()}
+	forsec somatic {pvbasketcell_list.append()}
 	forsec dend_list {scacell_list.append()}
 	forsec rad_list {scacell_list.append()}
 	forsec lm_list {eccell_list.append()}

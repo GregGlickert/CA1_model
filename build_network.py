@@ -398,7 +398,7 @@ def n_connections(src, trg, prob=0.1, min_syns=1, max_syns=2):
     return 0 if np.random.uniform() > prob else np.random.randint(min_syns, max_syns)
 
 
-##CONNECTIONS## I THINK PROBS NEED TO BE 100 times lower
+##CONNECTIONS##
 ##AAC CONNECTIONS ###
 net.add_edges(source=net.nodes(pop_name='AAC'), target=net.nodes(pop_name='Pyr'),
               connection_rule=n_connections,
@@ -407,8 +407,8 @@ net.add_edges(source=net.nodes(pop_name='AAC'), target=net.nodes(pop_name='Pyr')
               model_template='Exp2Syn',
               syn_weight=1,
               delay=2.0,
-              target_sections=['axonal'],
-              distance_range=[0.0, 3000.0])     # gets error saying cant find syn connection
+              target_sections=['somatic'],
+              distance_range=[0.0, 3000.0])     # gets error saying cant find syn connection when axonal
 ###PV CONNECTIONS ###
 net.add_edges(source=net.nodes(pop_name='PV'), target=net.nodes(pop_name='Pyr'),
               connection_rule=n_connections,
@@ -617,7 +617,7 @@ build_env_bionet(base_dir='./',
                 report_vars=['v'],
                 components_dir='biophys_components',
                 config_file='simulation_config.json',
-                compile_mechanisms=False)
+                compile_mechanisms=True)
 #                 current_clamp={
 #                     'amp': 0.800,
 #                     'delay': 500.0,

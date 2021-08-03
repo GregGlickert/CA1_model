@@ -9,15 +9,15 @@ import random
 seed = 999
 random.seed(seed)
 np.random.seed(seed)
-
+print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 147
-numCCK = 10
-numNGF = 10
-numOLM = 10
-numPV = 10
-numPyr = 31150
+numAAC = 147  # 147
+numCCK = 10  # 360
+numNGF = 10  # 580
+numOLM = 164  # 164
+numPV = 553  # 553
+numPyr = 31150  # 31150
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -37,7 +37,7 @@ numPV_inSO = int(round(numPV*0.238))
 numPV_inSP = int(round(numPV*0.701))
 numPV_inSR = int(round(numPV*0.0596))
 
-
+# total 400x1000x450
 # Order from top to bottom is SO,SP,SR,SLM total
 # SO layer
 xside_length = 400; yside_length = 1000; height = 450; min_dist = 20
@@ -410,7 +410,8 @@ def n_connections(src, trg, max_dist, prob=0.1):
             return 0
         else:
             return 1
-
+print('AAC connections')
+#convergence of 6
 conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      connection_rule=n_connections,
                      connection_params={'prob': 0.05, 'max_dist': 500},  # was.408
@@ -422,21 +423,70 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      target_sections=['axonal'],
                      sec_id=0,
                      sec_x=0.5)
-
+# convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.007631, 'max_dist': 500},  # was.408
+                     connection_params={'prob': 0.007631, 'max_dist': 500},
                      syn_weight=1,
                      delay=0.1,
                      dynamics_params='AMPA_ExcToInh.json',
                      model_template='exp2syn',
                      distance_range=[0.0, 500.0],
-                     target_sections=['axonal'],
+                     target_sections=['apical'],
                      sec_id=0,
                      sec_x=0.5)
-
-#connection_params={'a': 0.0382,'x0': 190,'sigma': 60,
-#                                        'max_dist': 500},
+# convergence of 17
+"""
+print('PV connections')
+conn = net.add_edges(source={'pop_name': 'PV'}, target={'pop_name': 'Pyr'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.0436, 'max_dist': 500},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='AMPA_ExcToInh.json',
+                     model_template='exp2syn',
+                     distance_range=[0.0, 500.0],
+                     target_sections=['somatic'],
+                     sec_id=0,
+                     sec_x=0.5)
+# convergence of 424 but actually a bit low
+conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'PV'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.01917, 'max_dist': 500},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='AMPA_ExcToInh.json',
+                     model_template='exp2syn',
+                     distance_range=[0.0, 500.0],
+                     target_sections=['apical'],
+                     sec_id=0,
+                     sec_x=0.5)
+print('olm connections')
+# converge 8
+conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'Pyr'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.07015, 'max_dist': 500},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='AMPA_ExcToInh.json',
+                     model_template='exp2syn',
+                     distance_range=[0.0, 500.0],
+                     target_sections=['apical'],
+                     sec_id=0,
+                     sec_x=0.5)
+# converge 2379
+conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'OLM'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.1095, 'max_dist': 500},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='AMPA_ExcToInh.json',
+                     model_template='exp2syn',
+                     distance_range=[0.0, 500.0],
+                     target_sections=['basal'],
+                     sec_id=0,
+                     sec_x=0.5)
+"""
 
 net.build()
 net.save(output_dir='network')
@@ -446,14 +496,14 @@ print(count)
 build_env_bionet(base_dir='./',
                 network_dir='./network',
                 config_file='config.json',
-                tstop=2000.0, dt=0.1,
+                tstop=1000.0, dt=0.1,
                 report_vars=['v'],
                 components_dir='biophys_components',
                 current_clamp={
                      'amp': 0.500,
                      'delay': 500.0,
-                     'duration': 1000.0,
-                     'gids': [0, 10, 11, 15, 31313, 31314]
+                     'duration': 100.0,
+                     'gids': [0, 1, 2]
                  },
                 compile_mechanisms=False)
 

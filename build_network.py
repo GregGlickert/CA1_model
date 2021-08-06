@@ -1,10 +1,12 @@
 from bmtk.builder import NetworkBuilder
 from bmtk.builder.auxi.node_params import positions_list
 from bmtk.utils.sim_setup import build_env_bionet
+from bmtk.utils.reports.spike_trains import PoissonSpikeGenerator
 from math import exp
 import numpy as np
 import pandas as pd
 import random
+
 
 seed = 999
 random.seed(seed)
@@ -12,12 +14,12 @@ np.random.seed(seed)
 print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 147  # 147
+numAAC = 32  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
-numOLM = 164  # 164
-numPV = 553  # 553
-numPyr = 31150  # 31150
+numOLM = 10  # 164
+numPV = 10  # 553
+numPyr = 311  # 31150
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -40,7 +42,7 @@ numPV_inSR = int(round(numPV*0.0596))
 # total 400x1000x450
 # Order from top to bottom is SO,SP,SR,SLM total
 # SO layer
-xside_length = 400; yside_length = 1000; height = 450; min_dist = 20
+xside_length = 400; yside_length = 100; height = 450; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(320, height+min_dist, min_dist)
@@ -48,7 +50,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SO = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SP layer
-xside_length = 400; yside_length = 1000; height = 320; min_dist = 8
+xside_length = 400; yside_length = 100; height = 320; min_dist = 8
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(290, height+min_dist, min_dist)
@@ -56,7 +58,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SP = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SR
-xside_length = 400; yside_length = 1000; height = 290; min_dist = 20
+xside_length = 400; yside_length = 100; height = 290; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(80, height+min_dist, min_dist)
@@ -64,7 +66,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SR = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SLM
-xside_length = 400; yside_length = 1000; height = 79; min_dist = 20
+xside_length = 400; yside_length = 100; height = 79; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(0, height+min_dist, min_dist)
@@ -99,18 +101,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SO, 0)), numCCK_inSO, repl
 pos = pos_list_SO[inds, :]
 
 # Place cell
-net.add_nodes(N=numCCK_inSO, pop_name='CCK',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:cckcell',
-              morphology=None)
+#net.add_nodes(N=numCCK_inSO, pop_name='CCK',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#              model_template='hoc:cckcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numCCK_inSO):
-    cell_name.append("CCK in SO layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numCCK_inSO):
+#    cell_name.append("CCK in SO layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SO, inds, 0)
 
@@ -120,18 +122,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SO, 0)), numOLM, replace=F
 pos = pos_list_SO[inds, :]
 
 # place cell
-net.add_nodes(N=numOLM, pop_name='OLM',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:olmcell',
-              morphology=None)
+#net.add_nodes(N=numOLM, pop_name='OLM',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#              model_template='hoc:olmcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numOLM):
-    cell_name.append("OLM in SO layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numOLM):
+#    cell_name.append("OLM in SO layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SO, inds, 0)
 
@@ -141,18 +143,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SO, 0)), numPV_inSO, repla
 pos = pos_list_SO[inds, :]
 
 # place cell
-net.add_nodes(N=numPV_inSO, pop_name='PV',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:pvbasketcell',
-              morphology=None)
+#net.add_nodes(N=numPV_inSO, pop_name='PV',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#              model_template='hoc:pvbasketcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numPV_inSO):
-    cell_name.append("PV in SO layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numPV_inSO):
+#    cell_name.append("PV in SO layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SO, inds, 0)
 
@@ -200,18 +202,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SP, 0)), numCCK_inSP, repl
 pos = pos_list_SP[inds, :]
 
 # Place cell
-net.add_nodes(N=numCCK_inSP, pop_name='CCK',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:cckcell',
-              morphology=None)
+#net.add_nodes(N=numCCK_inSP, pop_name='CCK',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#              model_template='hoc:cckcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numCCK_inSP):
-    cell_name.append("CCK in SP layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numCCK_inSP):
+#    cell_name.append("CCK in SP layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SP, inds, 0)
 
@@ -221,18 +223,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SP, 0)), numPV_inSP, repla
 pos = pos_list_SP[inds, :]
 
 # place cell
-net.add_nodes(N=numPV_inSP, pop_name='PV',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:pvbasketcell',
-              morphology=None)
+#net.add_nodes(N=numPV_inSP, pop_name='PV',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#              model_template='hoc:pvbasketcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numPV_inSP):
-    cell_name.append("PV in SP layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numPV_inSP):
+#    cell_name.append("PV in SP layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SP, inds, 0)
 
@@ -263,18 +265,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SR, 0)), numCCK_inSR, repl
 pos = pos_list_SR[inds, :]
 
 # Place cell
-net.add_nodes(N=numCCK_inSR, pop_name='CCK',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:cckcell',
-              morphology=None)
+#net.add_nodes(N=numCCK_inSR, pop_name='CCK',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#              model_template='hoc:cckcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numCCK_inSR):
-    cell_name.append("CCK in SR layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numCCK_inSR):
+#    cell_name.append("CCK in SR layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SR, inds, 0)
 
@@ -284,18 +286,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SR, 0)), numNGF_inSR, repl
 pos = pos_list_SR[inds, :]
 
 # Place cell
-net.add_nodes(N=numNGF_inSR, pop_name='NGF',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:ngfcell',
-              morphology=None)
+#net.add_nodes(N=numNGF_inSR, pop_name='NGF',
+#             positions=positions_list(positions=pos),
+#             mem_potential='e',
+#             model_type='biophysical',
+#              model_template='hoc:ngfcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numNGF_inSR):
-    cell_name.append("NGF in SR layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numNGF_inSR):
+#    cell_name.append("NGF in SR layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SR, inds, 0)
 
@@ -305,18 +307,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SR, 0)), numPV_inSR, repla
 pos = pos_list_SR[inds, :]
 
 # place cell
-net.add_nodes(N=numPV_inSR, pop_name='PV',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:pvbasketcell',
-              morphology=None)
+#net.add_nodes(N=numPV_inSR, pop_name='PV',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#              model_template='hoc:pvbasketcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numPV_inSR):
-    cell_name.append("PV in SR layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numPV_inSR):
+#    cell_name.append("PV in SR layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#   cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SR, inds, 0)
 
@@ -328,18 +330,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SLM, 0)), numCCK_inSLM, re
 pos = pos_list_SLM[inds, :]
 
 # Place cell
-net.add_nodes(N=numCCK_inSLM, pop_name='CCK',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:cckcell',
-              morphology=None)
+#net.add_nodes(N=numCCK_inSLM, pop_name='CCK',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#             model_template='hoc:cckcell',
+#             morphology=None)
 # save location in array delete used locations
-for i in range(numCCK_inSLM):
-    cell_name.append("CCK in SLM layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numCCK_inSLM):
+#    cell_name.append("CCK in SLM layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SLM, inds, 0)
 
@@ -349,18 +351,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SLM, 0)), numNGF_inSLM, re
 pos = pos_list_SLM[inds, :]
 
 # Place cell
-net.add_nodes(N=numNGF_inSLM, pop_name='NGF',
-              positions=positions_list(positions=pos),
-              mem_potential='e',
-              model_type='biophysical',
-              model_template='hoc:ngfcell',
-              morphology=None)
+#net.add_nodes(N=numNGF_inSLM, pop_name='NGF',
+#              positions=positions_list(positions=pos),
+#              mem_potential='e',
+#              model_type='biophysical',
+#              model_template='hoc:ngfcell',
+#              morphology=None)
 # save location in array delete used locations
-for i in range(numNGF_inSLM):
-    cell_name.append("NGF in SLM layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numNGF_inSLM):
+#    cell_name.append("NGF in SLM layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SLM, inds, 0)
 
@@ -370,6 +372,13 @@ for i in range(len(cell_name)):
     df.loc[i] = [cell_name[i], cell_x[i], cell_y[i], cell_z[i]]
 df.to_csv("cell_locations.csv")
 count = 0
+
+thalamus = NetworkBuilder('bg_pn')
+thalamus.add_nodes(N=numPyr,
+                   pop_name='tON',
+                   potential='exc',
+                   model_type='virtual')
+
 def AAC_to_PYR(src, trg, a, x0, sigma, max_dist):
     if src.node_id == trg.node_id:
         return 0
@@ -410,28 +419,41 @@ def n_connections(src, trg, max_dist, prob=0.1):
             return 0
         else:
             return 1
+
+def one_to_one(source, target):
+    sid = source.node_id
+    tid = target.node_id
+    if sid == tid:
+        # print("connecting cell {} to {}".format(sid,tid))
+        tmp_nsyn = 1
+    else:
+        return None
+
+    return tmp_nsyn
+
+
 print('AAC connections')
 #convergence of 6
 conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.05, 'max_dist': 500},  # was.408
+                     connection_params={'prob': 0.05, 'max_dist': 400},  # was.408
                      syn_weight=1,
                      delay=0.1,
                      dynamics_params='AAC_To_PYR.json',
                      model_template='exp2syn',
-                     distance_range=[0.0, 500.0],
+                     distance_range=[0.0, 400.0],
                      target_sections=['axonal'],
                      sec_id=0,
                      sec_x=0.5)
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.007631, 'max_dist': 500},
-                     syn_weight=1,
+                     connection_params={'prob': 0.007631, 'max_dist': 400},
+                     syn_weight=10,
                      delay=0.1,
                      dynamics_params='AMPA_ExcToInh.json',
                      model_template='exp2syn',
-                     distance_range=[0.0, 500.0],
+                     distance_range=[0.0, 400.0],
                      target_sections=['apical'],
                      sec_id=0,
                      sec_x=0.5)
@@ -443,7 +465,7 @@ conn = net.add_edges(source={'pop_name': 'PV'}, target={'pop_name': 'Pyr'},
                      connection_params={'prob': 0.0436, 'max_dist': 500},
                      syn_weight=1,
                      delay=0.1,
-                     dynamics_params='AMPA_ExcToInh.json',
+                     dynamics_params='GABA_InhToExc.json',
                      model_template='exp2syn',
                      distance_range=[0.0, 500.0],
                      target_sections=['somatic'],
@@ -468,13 +490,13 @@ conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'Pyr'},
                      connection_params={'prob': 0.07015, 'max_dist': 500},
                      syn_weight=1,
                      delay=0.1,
-                     dynamics_params='AMPA_ExcToInh.json',
+                     dynamics_params='GABA_InhToExc.json',
                      model_template='exp2syn',
                      distance_range=[0.0, 500.0],
                      target_sections=['apical'],
                      sec_id=0,
                      sec_x=0.5)
-# converge 2379
+# converge 2378
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'OLM'},
                      connection_rule=n_connections,
                      connection_params={'prob': 0.1095, 'max_dist': 500},
@@ -486,26 +508,82 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'OLM'},
                      target_sections=['basal'],
                      sec_id=0,
                      sec_x=0.5)
+#convergence of 13
+print("CCK connections")
+conn = net.add_edges(source={'pop_name': 'CCK'}, target={'pop_name': 'Pyr'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.0529, 'max_dist': 500},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='GABA_InhToExc.json',
+                     model_template='exp2syn',
+                     distance_range=[0.0, 500.0],
+                     target_sections=['basal, apical'],
+                     sec_id=0,
+                     sec_x=0.5)
+#convergence 14
+print("NGF connections")
+conn = net.add_edges(source={'pop_name': 'NGF'}, target={'pop_name': 'Pyr'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.0385, 'max_dist': 500},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='GABA_InhToExc.json',
+                     model_template='exp2syn',
+                     distance_range=[0.0, 500.0],
+                     target_sections=['apical'],
+                     sec_id=0,
+                     sec_x=0.5)
 """
 
+print('background connections')
+net.add_edges(source=thalamus.nodes(), target=net.nodes(pop_name='Pyr'),
+              connection_rule=one_to_one,
+              syn_weight=1,
+              target_sections=['somatic'],
+              delay=0.1,
+              distance_range=[0.0, 300.0],
+              dynamics_params='AMPA_ExcToExc.json',
+              model_template='exp2syn')
+
+print("building/saving bio cells")
 net.build()
 net.save(output_dir='network')
 
-print(count)
+print("building/saving virtual cells")
+thalamus.build()
+thalamus.save_nodes(output_dir='network')
+
+#print(count)
+
+
+t_stim = 500.0
 
 build_env_bionet(base_dir='./',
                 network_dir='./network',
                 config_file='config.json',
-                tstop=1000.0, dt=0.1,
+                tstop=t_stim, dt=0.1,
                 report_vars=['v'],
                 components_dir='biophys_components',
+                 spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
                 current_clamp={
                      'amp': 0.500,
-                     'delay': 500.0,
+                     'delay': 200.0,
                      'duration': 100.0,
                      'gids': [0, 1, 2]
-                 },
+                },
                 compile_mechanisms=False)
+
+
+psg = PoissonSpikeGenerator(population='bg_pn')
+psg.add(node_ids=range(numPyr),  # need same number as cells
+        firing_rate=0.2,    # 1 spike every 5 seconds Hz
+        times=(0.0, t_stim/1000))  # time is in seconds for some reason
+psg.to_sonata('bg_pn_spikes.h5')
+
+print('Number of background spikes: {}'.format(psg.n_spikes()))
+
+
 
 
 

@@ -1,22 +1,21 @@
 from bmtk.analyzer.compartment import plot_traces
-<<<<<<< Updated upstream
 from bmtk.analyzer.spike_trains import plot_rates
-from bmtk.analyzer.spike_trains import plot_raster
-_ = plot_traces(config_file='simulation_config.json', report_name='v_report', node_ids=[0])
-#_ = plot_rates(config_file='simulation_config.json')
-#_ = plot_raster(config_file='simulation_config.json',group_by='pop_name')
+from bmtk.analyzer.spike_trains import plot_raster, plot_rates_boxplot
+from bmtk.analyzer.spike_trains import to_dataframe
+import pandas
 
-_ = plot_traces(config_file='simulation_config.json', report_name='v_report',
-                node_ids=[16,17,18,19,20,21,22,23,24,25])
+_ = plot_raster(config_file='config.json',group_by='pop_name')
 
-=======
-from bmtk.analyzer.spike_trains import plot_rates, plot_raster
-_ = plot_traces(config_file='simulation_config.json', node_ids=[0], report_name='v_report', title='AAC')
-_ = plot_traces(config_file='simulation_config.json', node_ids=[1], report_name='v_report', title='Pyr')
-_ = plot_traces(config_file='simulation_config.json', node_ids=[2], report_name='v_report', title='PV')
+plot_rates_boxplot(config_file='config.json', group_by='pop_name')
 
+_ = plot_traces(config_file='config.json', node_ids=[126], report_name='v_report')
 
-_ = plot_rates(config_file='simulation_config.json')
+_ = plot_traces(config_file='config.json', node_ids=[0], report_name='v_report')
 
-_ = plot_raster(config_file='simulation_config.json')
->>>>>>> Stashed changes
+df = to_dataframe(config_file='config.json')
+
+df.sort_values(by=['node_ids'])
+
+df.to_csv('spikedata.csv')
+
+print(len(df))

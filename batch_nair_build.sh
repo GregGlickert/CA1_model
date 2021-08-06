@@ -2,7 +2,7 @@
 #SBATCH -N 1
 #SBATCH -n 1
 #SBATCH --qos=normal
-#SBATCH --job-name=10cell
+#SBATCH --job-name=CA1
 #SBATCH --output=buildCA1.out
 #SBATCH --time 0-00:30
 

@@ -1,2 +1,5 @@
-node_type_id morphology model_template model_type mem_potential
-100  hoc:poolosyncell biophysical e
+node_type_id morphology mem_potential pop_name model_template model_type
+100  e AAC hoc:axoaxoniccell biophysical
+101  e Pyr hoc:pyramidalcell biophysical
+102  e AAC hoc:axoaxoniccell biophysical
+103  e AAC hoc:axoaxoniccell biophysical

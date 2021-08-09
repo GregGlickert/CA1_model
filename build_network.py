@@ -6,7 +6,10 @@ from math import exp
 import numpy as np
 import pandas as pd
 import random
+import synapses
 
+synapses.load()
+syn = synapses.syn_params_dicts()
 
 seed = 999
 random.seed(seed)
@@ -439,8 +442,8 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      connection_params={'prob': 0.05, 'max_dist': 400},  # was.408
                      syn_weight=1,
                      delay=0.1,
-                     dynamics_params='AAC_To_PYR.json',
-                     model_template='exp2syn',
+                     dynamics_params='CHN2PN.json',
+                     model_template=syn['CHN2PN.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['axonal'],
                      sec_id=0,
@@ -449,7 +452,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
                      connection_params={'prob': 0.007631, 'max_dist': 400},
-                     syn_weight=10,
+                     syn_weight=1,
                      delay=0.1,
                      dynamics_params='AMPA_ExcToInh.json',
                      model_template='exp2syn',
@@ -546,12 +549,14 @@ net.add_edges(source=thalamus.nodes(), target=net.nodes(pop_name='Pyr'),
               dynamics_params='AMPA_ExcToExc.json',
               model_template='exp2syn')
 
-print("building/saving bio cells")
+print("building bio cells")
 net.build()
+print("Saving bio cells")
 net.save(output_dir='network')
 
-print("building/saving virtual cells")
+print("building virtual cells")
 thalamus.build()
+print("saving virtual cells")
 thalamus.save_nodes(output_dir='network')
 
 #print(count)

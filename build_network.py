@@ -564,20 +564,20 @@ thalamus.save_nodes(output_dir='network')
 
 t_stim = 500.0
 
-build_env_bionet(base_dir='./',
-                network_dir='./network',
-                config_file='config.json',
-                tstop=t_stim, dt=0.1,
-                report_vars=['v'],
-                components_dir='biophys_components',
-                 spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
-                current_clamp={
-                     'amp': 0.500,
-                     'delay': 200.0,
-                     'duration': 100.0,
-                     'gids': [0, 1, 2]
-                },
-                compile_mechanisms=False)
+#build_env_bionet(base_dir='./',
+#                network_dir='./network',
+#                config_file='config.json',
+#                tstop=t_stim, dt=0.1,
+#                report_vars=['v'],
+#                components_dir='biophys_components',
+#                 spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
+#                current_clamp={
+#                     'amp': 0.500,
+#                     'delay': 200.0,
+#                     'duration': 100.0,
+#                     'gids': [0, 1, 2]
+#                },
+#                compile_mechanisms=False)
 
 
 psg = PoissonSpikeGenerator(population='bg_pn')

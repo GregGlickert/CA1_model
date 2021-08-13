@@ -6,14 +6,23 @@ import pandas as pd
 
 from sonata.circuit import File
 
-#path = "network/biophysical_biophysical_edges.h5"
 
-#f = h5py.File(path)
+# TO MAKE SURE WEIGHTS ARE GETTING SAVED CORRECT
+path = "updated_conns/biophysical_biophysical_edges.h5"
+
+f = h5py.File(path)
+
+print(f['edges']['biophysical_biophysical'].keys())
+
+print(f['edges']['biophysical_biophysical']['0']['syn_weight'][:])
 
 #print(f['edges']['biophysical_to_biophysical'].keys())
 
 #print(f['edges']['biophysical_to_biophysical']['target_node_id'][:])
 
+
+# FOR SEEING WHAT IS CONNECTED TO WHAT
+"""
 net = File(data_files=['network/biophysical_biophysical_edges.h5', 'network/biophysical_nodes.h5'],
            data_type_files=['network/biophysical_biophysical_edge_types.csv', 'network/biophysical_node_types.csv'])
 
@@ -31,4 +40,4 @@ for edge in recurrent_edges.get_target(15):  # we can also use get_targets([id0,
     con_count += 1
 
 print('There are {} connections onto target node #{}'.format(con_count, 15))
-
+"""

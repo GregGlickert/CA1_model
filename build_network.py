@@ -17,12 +17,12 @@ np.random.seed(seed)
 print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 32  # 147
+numAAC = 147  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
 numPV = 10  # 553
-numPyr = 311  # 31150
+numPyr = 31150  # 31150  311
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -45,7 +45,7 @@ numPV_inSR = int(round(numPV*0.0596))
 # total 400x1000x450
 # Order from top to bottom is SO,SP,SR,SLM total
 # SO layer
-xside_length = 400; yside_length = 100; height = 450; min_dist = 20
+xside_length = 400; yside_length = 1000; height = 450; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(320, height+min_dist, min_dist)
@@ -53,7 +53,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SO = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SP layer
-xside_length = 400; yside_length = 100; height = 320; min_dist = 8
+xside_length = 400; yside_length = 1000; height = 320; min_dist = 8
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(290, height+min_dist, min_dist)
@@ -61,7 +61,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SP = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SR
-xside_length = 400; yside_length = 100; height = 290; min_dist = 20
+xside_length = 400; yside_length = 1000; height = 290; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(80, height+min_dist, min_dist)
@@ -69,7 +69,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SR = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SLM
-xside_length = 400; yside_length = 100; height = 79; min_dist = 20
+xside_length = 400; yside_length = 1000; height = 79; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(0, height+min_dist, min_dist)
@@ -437,10 +437,14 @@ def one_to_one(source, target):
 
 print('AAC connections')
 #convergence of 6
+
 conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
+                     iterator='one_to_one',
                      connection_rule=n_connections,
                      connection_params={'prob': 0.05, 'max_dist': 400},  # was.408
-                     syn_weight=1,
+                     syn_weight=0.2,
+                     weight_function='lognormal',
+                     weight_sigma=0.1,
                      delay=0.1,
                      dynamics_params='CHN2PN.json',
                      model_template=syn['CHN2PN.json']['level_of_detail'],
@@ -448,14 +452,18 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      target_sections=['axonal'],
                      sec_id=0,
                      sec_x=0.5)
+
+
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
                      connection_params={'prob': 0.007631, 'max_dist': 400},
-                     syn_weight=1,
+                     syn_weight=0.4,
+                     weight_function='lognormal',
+                     weight_sigma=0.02,
                      delay=0.1,
-                     dynamics_params='AMPA_ExcToInh.json',
-                     model_template='exp2syn',
+                     dynamics_params='PN2INT.json',
+                     model_template=syn['PN2INT.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['apical'],
                      sec_id=0,
@@ -564,20 +572,20 @@ thalamus.save_nodes(output_dir='network')
 
 t_stim = 500.0
 
-#build_env_bionet(base_dir='./',
-#                network_dir='./network',
-#                config_file='config.json',
-#                tstop=t_stim, dt=0.1,
-#                report_vars=['v'],
-#                components_dir='biophys_components',
-#                 spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
-#                current_clamp={
-#                     'amp': 0.500,
-#                     'delay': 200.0,
-#                     'duration': 100.0,
-#                     'gids': [0, 1, 2]
-#                },
-#                compile_mechanisms=False)
+build_env_bionet(base_dir='./',
+                network_dir='./network',
+                config_file='config.json',
+                tstop=t_stim, dt=0.1,
+                report_vars=['v'],
+                components_dir='biophys_components',
+                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
+                current_clamp={
+                     'amp': 0.500,
+                     'delay': 200.0,
+                     'duration': 100.0,
+                     'gids': [0, 1, 2]
+                },
+                compile_mechanisms=False)
 
 
 psg = PoissonSpikeGenerator(population='bg_pn')

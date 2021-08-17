@@ -376,8 +376,8 @@ for i in range(len(cell_name)):
 df.to_csv("cell_locations.csv")
 count = 0
 
-thalamus = NetworkBuilder('bg_pn')
-thalamus.add_nodes(N=numPyr,
+background_PN = NetworkBuilder('bg_pn')
+background_PN.add_nodes(N=numPyr,
                    pop_name='tON',
                    potential='exc',
                    model_type='virtual')
@@ -441,7 +441,7 @@ print('AAC connections')
 conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      iterator='one_to_one',
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.05, 'max_dist': 400},  # was.408
+                     connection_params={'prob': 0.05, 'max_dist': 400},  # was 0.05
                      syn_weight=0.2,
                      weight_function='lognormal',
                      weight_sigma=0.1,
@@ -457,7 +457,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.007631, 'max_dist': 400},
+                     connection_params={'prob': 0.007631, 'max_dist': 400}, # was 0.007631
                      syn_weight=0.4,
                      weight_function='lognormal',
                      weight_sigma=0.02,
@@ -548,7 +548,7 @@ conn = net.add_edges(source={'pop_name': 'NGF'}, target={'pop_name': 'Pyr'},
 """
 
 print('background connections')
-net.add_edges(source=thalamus.nodes(), target=net.nodes(pop_name='Pyr'),
+net.add_edges(source=background_PN.nodes(), target=net.nodes(pop_name='Pyr'),
               connection_rule=one_to_one,
               syn_weight=1,
               target_sections=['somatic'],
@@ -563,9 +563,9 @@ print("Saving bio cells")
 net.save(output_dir='network')
 
 print("building virtual cells")
-thalamus.build()
+background_PN.build()
 print("saving virtual cells")
-thalamus.save_nodes(output_dir='network')
+background_PN.save_nodes(output_dir='network')
 
 #print(count)
 
@@ -578,7 +578,7 @@ build_env_bionet(base_dir='./',
                 tstop=t_stim, dt=0.1,
                 report_vars=['v'],
                 components_dir='biophys_components',
-                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
+                spikes_inputs=[('bg_pn', 'CA1_inputs/bg_pn_spikes.h5')],
                 current_clamp={
                      'amp': 0.500,
                      'delay': 200.0,
@@ -592,9 +592,9 @@ psg = PoissonSpikeGenerator(population='bg_pn')
 psg.add(node_ids=range(numPyr),  # need same number as cells
         firing_rate=0.2,    # 1 spike every 5 seconds Hz
         times=(0.0, t_stim/1000))  # time is in seconds for some reason
-psg.to_sonata('bg_pn_spikes.h5')
+psg.to_sonata('CA1_inputs/bg_pn_spikes.h5')
 
-print('Number of background spikes: {}'.format(psg.n_spikes()))
+print('Number of background spikes to PN cells: {}'.format(psg.n_spikes()))
 
 
 

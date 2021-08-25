@@ -14,7 +14,7 @@ end_of_pyr = 31184
 pyr_weights = []
 aac_weights = []
 for i in range(len(weights)):
-    if source_id[i] > 3 and source_id[i] < 313:
+    if source_id[i] > 35 and source_id[i] < 31184:
         pyr_weights.append(weights[i])
     else:
         aac_weights.append(weights[i])

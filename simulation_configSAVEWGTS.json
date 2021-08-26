@@ -46,6 +46,12 @@
     "save_synapses_mod": {
       "module": "save_synapses",
       "network_dir": "updated_conns"
+    },
+    "v_report": {
+      "variable_name": "v",
+      "cells": "all",
+      "module": "membrane_report",
+      "sections": "soma"
     }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json"

@@ -442,7 +442,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      iterator='one_to_one',
                      connection_rule=n_connections,
                      connection_params={'prob': 0.05, 'max_dist': 400},  # was 0.05
-                     syn_weight=0.2,
+                     syn_weight=1,
                      weight_function='lognormal',
                      weight_sigma=0.1,
                      delay=0.1,
@@ -458,7 +458,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
                      connection_params={'prob': 0.007631, 'max_dist': 400}, # was 0.007631
-                     syn_weight=0.4,
+                     syn_weight=1,
                      weight_function='lognormal',
                      weight_sigma=0.02,
                      delay=0.1,
@@ -582,7 +582,7 @@ build_env_bionet(base_dir='./',
                 current_clamp={
                      'amp': 0.500,
                      'delay': 200.0,
-                     'duration': 100.0,
+                     'duration': 15.0,
                      'gids': [0, 1, 2]
                 },
                 compile_mechanisms=False)

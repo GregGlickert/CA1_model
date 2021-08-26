@@ -23,10 +23,8 @@
       "node_set": "all",
       "gids": [
         0,
-        2,
-        3,
-        4,
-        5
+        1,
+        2
       ],
       "amp": 0.5,
       "delay": 200.0,
@@ -35,7 +33,7 @@
     "bg_pn_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/bg_pn_spikes.h5",
+      "input_file": "$BASE_DIR/CA1_inputs/bg_pn_spikes.h5",
       "node_set": "bg_pn"
     }
   },

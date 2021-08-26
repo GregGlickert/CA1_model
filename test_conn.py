@@ -442,7 +442,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      iterator='one_to_one',
                      connection_rule=n_connections,
                      connection_params={'prob': 1, 'max_dist': 4000},  # was 0.05
-                     syn_weight=0.2,
+                     syn_weight=20,
                      weight_function='lognormal',
                      weight_sigma=0.1,
                      delay=0.1,
@@ -458,7 +458,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
                      connection_params={'prob': 1, 'max_dist': 4000}, # was 0.007631
-                     syn_weight=0.4,
+                     syn_weight=1,
                      weight_function='lognormal',
                      weight_sigma=0.02,
                      delay=0.1,
@@ -471,7 +471,7 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
 
 print('background connections')
 net.add_edges(source=thalamus.nodes(), target=net.nodes(pop_name='Pyr'),
-              connection_rule=one_to_one,
+              connection_rule=1,
               syn_weight=1,
               target_sections=['somatic'],
               delay=0.1,
@@ -505,14 +505,14 @@ build_env_bionet(base_dir='./',
                      'amp': 0.500,
                      'delay': 200.0,
                      'duration': 100.0,
-                     'gids': [0, 1, 2]
+                     'gids': [0,2,3,4,5]
                 },
                 compile_mechanisms=False)
 
 
 psg = PoissonSpikeGenerator(population='bg_pn')
 psg.add(node_ids=range(numPyr),  # need same number as cells
-        firing_rate=2,    # 1 spike every 5 seconds Hz
+        firing_rate=0.002,    # 1 spike every 5 seconds Hz
         times=(0.0, t_stim/1000))  # time is in seconds for some reason
 psg.to_sonata('bg_pn_spikes.h5')
 

@@ -1,0 +1,96 @@
+{
+  "network": "CA1_circuit_config.json",
+  "simulation": "simulation_config.json",
+  "config_path": "/Users/gregglickert/Documents/GitHub/CA1_model/CA1_config.json",
+  "config_dir": "/Users/gregglickert/Documents/GitHub/CA1_model",
+  "components": {
+    "mechanisms_dir": "/Users/gregglickert/Documents/GitHub/CA1_model/biophys_components/mechanisms",
+    "morphologies_dir": "/Users/gregglickert/Documents/GitHub/CA1_model/biophys_components/morphologies",
+    "__pycache___dir": "/Users/gregglickert/Documents/GitHub/CA1_model/biophys_components/__pycache__",
+    "synaptic_models_dir": "/Users/gregglickert/Documents/GitHub/CA1_model/biophys_components/synaptic_models",
+    "biophysical_neuron_models_dir": "/Users/gregglickert/Documents/GitHub/CA1_model/biophys_components/biophysical_neuron_models",
+    "templates_dir": "/Users/gregglickert/Documents/GitHub/CA1_model/biophys_components/templates",
+    "point_neuron_models_dir": "/Users/gregglickert/Documents/GitHub/CA1_model/biophys_components/point_neuron_models"
+  },
+  "networks": {
+    "nodes": [
+      {
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/CA1_model/network/biophysical_node_types.csv",
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/CA1_model/network/biophysical_nodes.h5"
+      },
+      {
+        "node_types_file": "/Users/gregglickert/Documents/GitHub/CA1_model/network/bg_pn_node_types.csv",
+        "nodes_file": "/Users/gregglickert/Documents/GitHub/CA1_model/network/bg_pn_nodes.h5"
+      }
+    ],
+    "edges": [
+      {
+        "edges_file": "/Users/gregglickert/Documents/GitHub/CA1_model/network/biophysical_biophysical_edges.h5",
+        "edge_types_file": "/Users/gregglickert/Documents/GitHub/CA1_model/network/biophysical_biophysical_edge_types.csv"
+      },
+      {
+        "edges_file": "/Users/gregglickert/Documents/GitHub/CA1_model/network/bg_pn_biophysical_edges.h5",
+        "edge_types_file": "/Users/gregglickert/Documents/GitHub/CA1_model/network/bg_pn_biophysical_edge_types.csv"
+      }
+    ],
+    "gap_juncs": []
+  },
+  "target_simulator": "NEURON",
+  "run": {
+    "tstart": 0.0,
+    "tstop": 500.0,
+    "dt": 0.1,
+    "dL": 20.0,
+    "spike_threshold": -15.0,
+    "nsteps_block": 5000
+  },
+  "conditions": {
+    "celsius": 34.0,
+    "v_init": -80.0
+  },
+  "inputs": {
+    "current_clamp": {
+      "input_type": "current_clamp",
+      "module": "IClamp",
+      "node_set": "all",
+      "gids": [
+        0,
+        2,
+        3,
+        4,
+        5
+      ],
+      "amp": 0.5,
+      "delay": 200.0,
+      "duration": 100.0
+    },
+    "bg_pn_spikes": {
+      "input_type": "spikes",
+      "module": "sonata",
+      "input_file": "/Users/gregglickert/Documents/GitHub/CA1_model/bg_pn_spikes.h5",
+      "node_set": "bg_pn"
+    }
+  },
+  "output": {
+    "log_file": "/Users/gregglickert/Documents/GitHub/CA1_model/output/log.txt",
+    "output_dir": "/Users/gregglickert/Documents/GitHub/CA1_model/output",
+    "spikes_file": "/Users/gregglickert/Documents/GitHub/CA1_model/output/spikes.h5"
+  },
+  "reports": {
+    "v_report": {
+      "variable_name": "v",
+      "cells": "all",
+      "module": "membrane_report",
+      "sections": "soma"
+    }
+  },
+  "node_sets_file": "/Users/gregglickert/Documents/GitHub/CA1_model/node_sets.json",
+  "node_sets": {
+    "biophysical_nodes": {
+      "model_type": "biophysical"
+    },
+    "point_nodes": {
+      "model_type": "point_process"
+    }
+  }
+}

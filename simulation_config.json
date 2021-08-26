@@ -23,8 +23,10 @@
       "node_set": "all",
       "gids": [
         0,
-        1,
-        2
+        2,
+        3,
+        4,
+        5
       ],
       "amp": 0.5,
       "delay": 200.0,
@@ -50,6 +52,5 @@
       "sections": "soma"
     }
   },
-  "node_sets_file": "$BASE_DIR/node_sets.json",
-  "network": "$BASE_DIR/circuit_config.json"
+  "node_sets_file": "$BASE_DIR/node_sets.json"
 }

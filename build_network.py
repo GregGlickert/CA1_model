@@ -17,12 +17,12 @@ np.random.seed(seed)
 print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 147  # 147
+numAAC = 100  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
 numPV = 10  # 553
-numPyr = 31150  # 31150  311
+numPyr = 3115  # 31150  311
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -45,7 +45,7 @@ numPV_inSR = int(round(numPV*0.0596))
 # total 400x1000x450
 # Order from top to bottom is SO,SP,SR,SLM total
 # SO layer
-xside_length = 400; yside_length = 1000; height = 450; min_dist = 20
+xside_length = 400; yside_length = 100; height = 450; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(320, height+min_dist, min_dist)
@@ -53,7 +53,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SO = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SP layer
-xside_length = 400; yside_length = 1000; height = 320; min_dist = 8
+xside_length = 400; yside_length = 100; height = 320; min_dist = 8
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(290, height+min_dist, min_dist)
@@ -61,7 +61,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SP = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SR
-xside_length = 400; yside_length = 1000; height = 290; min_dist = 20
+xside_length = 400; yside_length = 100; height = 290; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(80, height+min_dist, min_dist)
@@ -69,7 +69,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SR = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SLM
-xside_length = 400; yside_length = 1000; height = 79; min_dist = 20
+xside_length = 400; yside_length = 100; height = 79; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(0, height+min_dist, min_dist)

@@ -457,10 +457,10 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.007631, 'max_dist': 400}, # was 0.007631
-                     syn_weight=1,
+                     connection_params={'prob': 0.007831, 'max_dist': 400}, # was 0.007631
+                     syn_weight=3,
                      weight_function='lognormal',
-                     weight_sigma=0.02,
+                     weight_sigma=1,
                      delay=0.1,
                      dynamics_params='PN2INT.json',
                      model_template=syn['PN2INT.json']['level_of_detail'],
@@ -570,7 +570,7 @@ background_PN.save_nodes(output_dir='network')
 #print(count)
 
 
-t_stim = 500.0
+t_stim = 300.0
 
 build_env_bionet(base_dir='./',
                 network_dir='./network',
@@ -583,7 +583,7 @@ build_env_bionet(base_dir='./',
                      'amp': 0.500,
                      'delay': 200.0,
                      'duration': 15.0,
-                     'gids': [0, 1, 2]
+                     'gids': [4, 6, 13, 31206, 31249]
                 },
                 compile_mechanisms=False)
 

@@ -142,8 +142,8 @@ INITIAL {
 	on_gaba = 0
 	r_gaba = 0
 	W = initW
-	limitW = 1
-
+	limitW = 1E
+	:printf("\t%g\n", initW)
 	t0 = -1
 
 	Wmax = fmax*initW

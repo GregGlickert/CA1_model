@@ -131,11 +131,11 @@ def Pyr2Int(syn_params, sec_x, sec_id):
         lsyn.Erev_nmda = float(syn_params['Erev_nmda']) # par.x(16)
     
     if syn_params.get('initW'):
-        m = 0.4
-        s = 0.02
+        m = 7
+        s = 3
         mean = np.log(m) - 0.5 * np.log((s/m)**2+1)
         std = np.sqrt(np.log((s/m)**2 + 1))
-        lsyn.initW = float(np.random.lognormal(mean,std)) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick() 
+        lsyn.initW = float(np.random.lognormal(mean,std, 1)) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW # par.x(1) * lsyn.initW
@@ -288,11 +288,12 @@ def Chn2Pyr(syn_params, sec_x, sec_id):
 
     
     if syn_params.get('initW'):
-        m = 0.2
-        s = 0.1
+        m = 8
+        s = 3
         mean = np.log(m) - 0.5 * np.log((s/m)**2+1)
         std = np.sqrt(np.log((s/m)**2 + 1))
-        lsyn.initW = float(np.random.lognormal(mean,std)) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
+        lsyn.initW = float(np.random.lognormal(mean,std, 1)) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
+        #print(lsyn.initW)
         #print(lsyn.initW)
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW # par.x(1) * lsyn.initW

@@ -133,7 +133,7 @@ INITIAL {
 	on_ampa = 0
 	r_ampa = 0
 	W_ampa = initW
-
+	:printf("\t%g\n", W_ampa)
 	t0 = -1
 
 	:Wmax = 2*initW
@@ -194,7 +194,7 @@ DERIVATIVE release {
 		scaleW = sqrt(fabs(1.0-normW))
 	}
 
-	W_ampa = W_ampa + dW_ampa*scaleW *(1+ (wACH * (ACH - 1))) * LearningShutDown
+	:W_ampa = W_ampa + dW_ampa*scaleW *(1+ (wACH * (ACH - 1))) * LearningShutDown
 	
 	:Weight value limits
 	if (W_ampa > Wmax) { 

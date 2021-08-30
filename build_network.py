@@ -22,7 +22,7 @@ numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
 numPV = 10  # 553
-numPyr = 31150  # 31150  311
+numPyr = 31150  # 31150   1000
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -443,8 +443,8 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      connection_rule=n_connections,
                      connection_params={'prob': 0.05, 'max_dist': 400},  # was 0.05
                      syn_weight=1,
-                     weight_function='lognormal',
-                     weight_sigma=0.1,
+                     #weight_function='lognormal',
+                     #weight_sigma=0.1,
                      delay=0.1,
                      dynamics_params='CHN2PN.json',
                      model_template=syn['CHN2PN.json']['level_of_detail'],
@@ -457,17 +457,20 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.007831, 'max_dist': 400}, # was 0.007631
-                     syn_weight=3,
-                     weight_function='lognormal',
-                     weight_sigma=1,
+                     connection_params={'prob': 0.007631, 'max_dist': 500}, # was 0.007631  0.199231
+                     syn_weight=1,
+                     #weight_function='lognormal',
+                     #weight_sigma=1,
                      delay=0.1,
                      dynamics_params='PN2INT.json',
                      model_template=syn['PN2INT.json']['level_of_detail'],
-                     distance_range=[0.0, 400.0],
+                     distance_range=[0.0, 500.0],
                      target_sections=['apical'],
                      sec_id=0,
                      sec_x=0.5)
+
+# dynamics_params='PN2INT.json',
+# model_template=syn['PN2INT.json']['level_of_detail'],
 # convergence of 17
 """
 print('PV connections')
@@ -572,20 +575,20 @@ background_PN.save_nodes(output_dir='network')
 
 t_stim = 300.0
 
-build_env_bionet(base_dir='./',
-                network_dir='./network',
-                config_file='config.json',
-                tstop=t_stim, dt=0.1,
-                report_vars=['v'],
-                components_dir='biophys_components',
-                spikes_inputs=[('bg_pn', 'CA1_inputs/bg_pn_spikes.h5')],
-                current_clamp={
-                     'amp': 0.500,
-                     'delay': 200.0,
-                     'duration': 15.0,
-                     'gids': [4, 6, 13, 31206, 31249]
-                },
-                compile_mechanisms=False)
+#build_env_bionet(base_dir='./',
+#                network_dir='./network',
+#                config_file='config.json',
+#                tstop=t_stim, dt=0.1,
+#                report_vars=['v'],
+#                components_dir='biophys_components',
+#                spikes_inputs=[('bg_pn', 'CA1_inputs/bg_pn_spikes.h5')],
+#                current_clamp={
+#                     'amp': 0.500,
+#                     'delay': 200.0,
+#                     'duration': 15.0,
+#                     'gids': [15, 1051, 1064]
+#                },
+#                compile_mechanisms=False)
 
 
 psg = PoissonSpikeGenerator(population='bg_pn')

@@ -6,7 +6,7 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 500.0,
+    "tstop": 300.0,
     "dt": 0.1,
     "dL": 20.0,
     "spike_threshold": -15.0,
@@ -22,18 +22,18 @@
       "module": "IClamp",
       "node_set": "all",
       "gids": [
-        0,
-        1,
-        2
+        15,
+        1051,
+        1064
       ],
       "amp": 0.5,
       "delay": 200.0,
-      "duration": 100.0
+      "duration": 15.0
     },
     "bg_pn_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/bg_pn_spikes.h5",
+      "input_file": "$BASE_DIR/CA1_inputs/bg_pn_spikes.h5",
       "node_set": "bg_pn"
     }
   },
@@ -52,7 +52,32 @@
       "cells": "all",
       "module": "membrane_report",
       "sections": "soma"
+    },
+    "syn_report1": {
+      "cells": "all",
+      "variable_name": "W",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "chn2pyr",
+      "file_name": "syns_chn2pyr.h5"
+    },
+    "syn_report2": {
+      "cells": "all",
+      "variable_name": "W_ampa",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "pyr2int",
+      "file_name": "syns_pyr2int_ampa.h5"
+    },
+    "syn_report3": {
+      "cells": "all",
+      "variable_name": "W_nmda",
+      "module": "netcon_report",
+      "sections": "all",
+      "syn_type": "pyr2int",
+      "file_name": "syns_pyr2int_nmda.h5"
     }
   },
-  "node_sets_file": "$BASE_DIR/node_sets.json"
+  "node_sets_file": "$BASE_DIR/node_sets.json",
+  "network": "$BASE_DIR/circuit_config.json"
 }

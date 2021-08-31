@@ -446,12 +446,13 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      #weight_function='lognormal',
                      #weight_sigma=0.1,
                      delay=0.1,
-                     dynamics_params='CHN2PN.json',
-                     model_template=syn['CHN2PN.json']['level_of_detail'],
+                     dynamics_params = 'CHN2PN.json',
+                     model_template = syn['CHN2PN.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['axonal'],
                      sec_id=0,
                      sec_x=0.5)
+
 
 
 # convergence of 163
@@ -494,20 +495,27 @@ thalamus.save_nodes(output_dir='network')
 
 t_stim = 500.0
 
-build_env_bionet(base_dir='./',
-                network_dir='./network',
-                config_file='config.json',
-                tstop=t_stim, dt=0.1,
-                report_vars=['v'],
-                components_dir='biophys_components',
-                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
-                current_clamp={
-                     'amp': 0.500,
-                     'delay': 200.0,
-                     'duration': 15.0,
-                     'gids': [0, 2, 3, 4, 5]
-                },
-                compile_mechanisms=False)
+#build_env_bionet(base_dir='./',
+#                network_dir='./network',
+#                config_file='config.json',
+#                tstop=t_stim, dt=0.1,
+#                report_vars=['v'],
+#                components_dir='biophys_components',
+#                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
+#                current_clamp={
+#                     'amp': 0.500,
+#                     'delay': 200.0,
+#                     'duration': 15.0,
+#                     'gids': [0, 1, 3, 4, 5]
+#                },
+#                clamp_reports=['se'],
+#                se_voltage_clamp={
+#                    'amps':[[-70, -70, -70]],
+#                    'durations': [[t_stim, t_stim, t_stim]],
+#                    'gids': [2],
+#                    'rs': [0.01],
+#                  },
+#                compile_mechanisms=False)
 
 
 psg = PoissonSpikeGenerator(population='bg_pn')

@@ -446,8 +446,8 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      #weight_function='lognormal',
                      #weight_sigma=0.1,
                      delay=0.1,
-                     dynamics_params='AAC_To_PYR.json',
-                     model_template='exp2syn',
+                     dynamics_params='CHN2PN.json',
+                     model_template=syn['CHN2PN.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['axonal'],
                      sec_id=0,
@@ -459,7 +459,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.199231, 'max_dist': 400}, # was 0.007631  0.199231
+                     connection_params={'prob': 0.007631, 'max_dist': 400}, # was 0.007631  0.199231
                      syn_weight=1,
                      #weight_function='lognormal',
                      #weight_sigma=1,
@@ -603,7 +603,7 @@ t_stim = 300.0
 
 psg = PoissonSpikeGenerator(population='bg_pn')
 psg.add(node_ids=range(numPyr),  # need same number as cells
-        firing_rate=0.2,    # 1 spike every 5 seconds Hz
+        firing_rate=0.00002,    # 1 spike every 5 seconds Hz
         times=(0.0, t_stim/1000))  # time is in seconds for some reason
 psg.to_sonata('CA1_inputs/bg_pn_spikes.h5')
 

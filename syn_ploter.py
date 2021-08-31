@@ -36,7 +36,8 @@ f = h5py.File(path, 'r')
 
 W = (f['report']['biophysical']['data'][:])
 weight = []
-for i in range(len(W)):
+print(len(W[0]))
+for i in range(len(W[0])):
     weight.append(W[0][i])
 
 sns.set_style('darkgrid')
@@ -52,7 +53,7 @@ f = h5py.File(path, 'r')
 
 W = (f['report']['biophysical']['data'][:])
 weight = []
-for i in range(len(W)):
+for i in range(len(W[0])):
     weight.append(W[0][i])
 
 sns.set_style('darkgrid')
@@ -62,8 +63,4 @@ plt.ylabel('# of synapses')
 plt.xlabel('syn_weight')
 plt.show()
 
-F = h5py.File('output/se_clamp_report.h5', 'r')
-print(F['data'][:])
-plt.plot(F['data'][:])
-plt.show()
 

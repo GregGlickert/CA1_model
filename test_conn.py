@@ -17,12 +17,12 @@ np.random.seed(seed)
 print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 6  # 147
+numAAC = 7  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
 numPV = 10  # 553
-numPyr = 10  # 31150  311
+numPyr = 1  # 31150  311
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -494,20 +494,20 @@ thalamus.save_nodes(output_dir='network')
 
 t_stim = 500.0
 
-#build_env_bionet(base_dir='./',
-#                network_dir='./network',
-#                config_file='config.json',
-#                tstop=t_stim, dt=0.1,
-#                report_vars=['v'],
-#                components_dir='biophys_components',
-#                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
-#                current_clamp={
-#                     'amp': 0.500,
-#                     'delay': 200.0,
-#                     'duration': 100.0,
-#                     'gids': [0, 2, 3, 4, 5]
-#                },
-#                compile_mechanisms=False)
+build_env_bionet(base_dir='./',
+                network_dir='./network',
+                config_file='config.json',
+                tstop=t_stim, dt=0.1,
+                report_vars=['v'],
+                components_dir='biophys_components',
+                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
+                current_clamp={
+                     'amp': 0.500,
+                     'delay': 200.0,
+                     'duration': 15.0,
+                     'gids': [0, 2, 3, 4, 5]
+                },
+                compile_mechanisms=False)
 
 
 psg = PoissonSpikeGenerator(population='bg_pn')

@@ -23,14 +23,40 @@
       "module": "IClamp",
       "node_set": "all",
       "gids": [
-        15,
-        1051,
-        1064,
-        1088
+        0,
+        2,
+        3,
+        4,
+        5
       ],
-      "amp": 0.5,
+      "amp": 0.9,
       "delay": 200.0,
-      "duration": 15.0
+      "duration": 30.0
+    },
+        "se_voltage_clamp": {
+      "input_type": "voltage_clamp",
+      "module": "SEClamp",
+      "node_set": "all",
+      "gids": [
+        925
+      ],
+      "amps": [
+        [
+          -70,
+          -70,
+          -70
+        ]
+      ],
+      "durations": [
+        [
+          300.0,
+          300.0,
+          300.0
+        ]
+      ],
+      "rs": [
+        0.01
+      ]
     },
     "bg_pn_spikes": {
       "input_type": "spikes",
@@ -71,23 +97,11 @@
       "syn_type": "pyr2int",
       "file_name": "syns_pyr2int_ampa.h5"
     },
-    "syn_report3": {
-      "cells": "all",
-      "variable_name": "W_nmda",
-      "module": "netcon_report",
-      "sections": "all",
-      "syn_type": "pyr2int",
-      "file_name": "syns_pyr2int_nmda.h5"
-    },
-    "ecp": {
-      "cells": "all",
-      "variable_name": "v",
-      "module": "extracellular",
-      "electrode_positions": "$COMPONENTS_DIR/recXelectrodes/linear_electrode.csv",
-      "file_name": "ecp.h5",
-      "electrode_channels": "all"
-      }
+    "se_clamp_report": {
+      "variable_name": "se",
+      "module": "clamp_report"
+    }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",
-  "network": "$BASE_DIR/CA1_circuit_config.json"
+  "network": "$BASE_DIR/circuit_config.json"
 }

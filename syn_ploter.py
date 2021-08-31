@@ -46,20 +46,6 @@ plt.ylabel('# of synapses')
 plt.xlabel('syn_weight')
 plt.show()
 
-path = 'output/syns_pyr2int_nmda.h5'
-f = h5py.File(path, 'r')
-
-W = (f['report']['biophysical']['data'][:])
-weight = []
-for i in range(len(W)):
-    weight.append(W[0][i])
-
-sns.set_style('darkgrid')
-sns.histplot(weight, kde=True)
-plt.title('syn_weight from inside mod file W_nmda targeting AAC')
-plt.ylabel('# of synapses')
-plt.xlabel('syn_weight')
-plt.show()
 
 path = 'output/syns_pyr2int_ampa.h5'
 f = h5py.File(path, 'r')
@@ -75,3 +61,9 @@ plt.title('syn_weight from inside mod file W_ampa targeting AAC')
 plt.ylabel('# of synapses')
 plt.xlabel('syn_weight')
 plt.show()
+
+F = h5py.File('output/se_clamp_report.h5', 'r')
+print(F['data'][:])
+plt.plot(F['data'][:])
+plt.show()
+

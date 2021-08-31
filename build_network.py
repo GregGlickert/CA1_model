@@ -22,7 +22,7 @@ numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
 numPV = 10  # 553
-numPyr = 1000  # 31150   1000
+numPyr = 31150  # 31150   1000
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -45,7 +45,7 @@ numPV_inSR = int(round(numPV*0.0596))
 # total 400x1000x450
 # Order from top to bottom is SO,SP,SR,SLM total
 # SO layer
-xside_length = 400; yside_length = 100; height = 450; min_dist = 20
+xside_length = 400; yside_length = 1000; height = 450; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(320, height+min_dist, min_dist)
@@ -53,7 +53,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SO = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SP layer
-xside_length = 400; yside_length = 100; height = 320; min_dist = 8
+xside_length = 400; yside_length = 1000; height = 320; min_dist = 8
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(290, height+min_dist, min_dist)
@@ -61,7 +61,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SP = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SR
-xside_length = 400; yside_length = 100; height = 290; min_dist = 20
+xside_length = 400; yside_length = 1000; height = 290; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(80, height+min_dist, min_dist)
@@ -69,7 +69,7 @@ xx, yy, zz = np.meshgrid(x_grid, y_grid, z_grid)
 pos_list_SR = np.vstack([xx.ravel(), yy.ravel(), zz.ravel()]).T
 
 # SLM
-xside_length = 400; yside_length = 100; height = 79; min_dist = 20
+xside_length = 400; yside_length = 1000; height = 79; min_dist = 20
 x_grid = np.arange(0, xside_length+min_dist, min_dist)
 y_grid = np.arange(0, yside_length+min_dist, min_dist)
 z_grid = np.arange(0, height+min_dist, min_dist)
@@ -446,13 +446,15 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      #weight_function='lognormal',
                      #weight_sigma=0.1,
                      delay=0.1,
-                     dynamics_params='CHN2PN.json',
-                     model_template=syn['CHN2PN.json']['level_of_detail'],
+                     dynamics_params='AAC_To_PYR.json',
+                     model_template='exp2syn',
                      distance_range=[0.0, 400.0],
                      target_sections=['axonal'],
                      sec_id=0,
                      sec_x=0.5)
 
+# dynamics_params='CHN2PN.json',
+# model_template=syn['CHN2PN.json']['level_of_detail'],
 
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
@@ -582,18 +584,26 @@ t_stim = 300.0
 #                report_vars=['v'],
 #                components_dir='biophys_components',
 #                spikes_inputs=[('bg_pn', 'CA1_inputs/bg_pn_spikes.h5')],
+                #clamp_reports=['se'],
+                #se_voltage_clamp={
+                #    'amps':[[-70, -70, -70]],
+                #    'durations': [[t_stim, t_stim, t_stim]],
+                #    'gids': [925],
+                #    'rs': [0.01],
+                #},
 #                current_clamp={
 #                     'amp': 0.500,
 #                     'delay': 200.0,
 #                     'duration': 15.0,
-#                     'gids': [15, 1051, 1064]
+#                     'gids': [15, 1051, 1064, 1088, 1100, 1128]
 #                },
+#                v_init=-70,
 #                compile_mechanisms=False)
 
 
 psg = PoissonSpikeGenerator(population='bg_pn')
 psg.add(node_ids=range(numPyr),  # need same number as cells
-        firing_rate=0.00002,    # 1 spike every 5 seconds Hz
+        firing_rate=0.2,    # 1 spike every 5 seconds Hz
         times=(0.0, t_stim/1000))  # time is in seconds for some reason
 psg.to_sonata('CA1_inputs/bg_pn_spikes.h5')
 

@@ -17,12 +17,12 @@ np.random.seed(seed)
 print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 5  # 147
+numAAC = 6  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
 numPV = 10  # 553
-numPyr = 1  # 31150  311
+numPyr = 10  # 31150  311
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -442,9 +442,9 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      iterator='one_to_one',
                      connection_rule=n_connections,
                      connection_params={'prob': 1, 'max_dist': 4000},  # was 0.05
-                     syn_weight=20,
-                     weight_function='lognormal',
-                     weight_sigma=0.1,
+                     syn_weight=1,
+                     #weight_function='lognormal',
+                     #weight_sigma=0.1,
                      delay=0.1,
                      dynamics_params='CHN2PN.json',
                      model_template=syn['CHN2PN.json']['level_of_detail'],
@@ -459,8 +459,8 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
                      connection_params={'prob': 1, 'max_dist': 4000}, # was 0.007631
                      syn_weight=1,
-                     weight_function='lognormal',
-                     weight_sigma=0.02,
+                     #weight_function='lognormal',
+                     #weight_sigma=0.02,
                      delay=0.1,
                      dynamics_params='PN2INT.json',
                      model_template=syn['PN2INT.json']['level_of_detail'],
@@ -494,20 +494,20 @@ thalamus.save_nodes(output_dir='network')
 
 t_stim = 500.0
 
-build_env_bionet(base_dir='./',
-                network_dir='./network',
-                config_file='config.json',
-                tstop=t_stim, dt=0.1,
-                report_vars=['v'],
-                components_dir='biophys_components',
-                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
-                current_clamp={
-                     'amp': 0.500,
-                     'delay': 200.0,
-                     'duration': 100.0,
-                     'gids': [0,2,3,4,5]
-                },
-                compile_mechanisms=False)
+#build_env_bionet(base_dir='./',
+#                network_dir='./network',
+#                config_file='config.json',
+#                tstop=t_stim, dt=0.1,
+#                report_vars=['v'],
+#                components_dir='biophys_components',
+#                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
+#                current_clamp={
+#                     'amp': 0.500,
+#                     'delay': 200.0,
+#                     'duration': 100.0,
+#                     'gids': [0, 2, 3, 4, 5]
+#                },
+#                compile_mechanisms=False)
 
 
 psg = PoissonSpikeGenerator(population='bg_pn')

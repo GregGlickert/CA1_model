@@ -1,12 +1,13 @@
 {
   "manifest": {
     "$BASE_DIR": "${configdir}",
-    "$OUTPUT_DIR": "$BASE_DIR/output"
+    "$OUTPUT_DIR": "$BASE_DIR/output",
+    "$COMPONENTS_DIR": "$BASE_DIR/biophys_components"
   },
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 500.0,
+    "tstop": 1000.0,
     "dt": 0.1,
     "dL": 20.0,
     "spike_threshold": -15.0,
@@ -22,12 +23,7 @@
       "module": "IClamp",
       "node_set": "all",
       "gids": [
-        0,
-        1,
-        3,
-        4,
-        5,
-        6
+
       ],
       "amp": 0.5,
       "delay": 200.0,
@@ -36,7 +32,7 @@
     "bg_pn_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/bg_pn_spikes.h5",
+      "input_file": "$BASE_DIR/CA1_inputs/bg_pn_spikes.h5",
       "node_set": "bg_pn"
     }
   },
@@ -52,6 +48,14 @@
       "module": "membrane_report",
       "sections": "soma"
     },
+    "ecp": {
+      "cells": "all",
+      "variable_name": "v",
+      "module": "extracellular",
+      "electrode_positions": "$COMPONENTS_DIR/recXelectrodes/linear_electrode.csv",
+      "file_name": "ecp.h5",
+      "electrode_channels": "all"
+      }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",
   "network": "$BASE_DIR/circuit_config.json"

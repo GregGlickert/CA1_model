@@ -22,7 +22,7 @@ numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
 numPV = 10  # 553
-numPyr = 31150  # 31150   1000
+numPyr = 1000  # 31150   1000
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -441,7 +441,7 @@ print('AAC connections')
 conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      iterator='one_to_one',
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.05, 'max_dist': 400},  # was 0.05
+                     connection_params={'prob': 0.07, 'max_dist': 400},  # was 0.05
                      syn_weight=1,
                      #weight_function='lognormal',
                      #weight_sigma=0.1,
@@ -459,7 +459,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.199231, 'max_dist': 400}, # was 0.007631  0.199231
+                     connection_params={'prob': 0.293231, 'max_dist': 400}, # was 0.007631  0.199231
                      syn_weight=1,
                      #weight_function='lognormal',
                      #weight_sigma=1,
@@ -603,7 +603,7 @@ t_stim = 1000.0
 
 psg = PoissonSpikeGenerator(population='bg_pn')
 psg.add(node_ids=range(numPyr),  # need same number as cells
-        firing_rate=0.5,    # 1 spike every 5 seconds Hz
+        firing_rate=0.0005,    # 1 spike every 5 seconds Hz
         times=(0.0, t_stim/1000))  # time is in seconds for some reason
 psg.to_sonata('CA1_inputs/bg_pn_spikes.h5')
 

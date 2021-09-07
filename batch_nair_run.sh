@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -N 1
-#SBATCH -n 50
+#SBATCH -n 60
 #SBATCH --qos=normal
 #SBATCH --job-name=CA1
 #SBATCH --output=runCA1.out

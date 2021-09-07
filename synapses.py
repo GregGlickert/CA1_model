@@ -135,7 +135,10 @@ def Pyr2Int(syn_params, sec_x, sec_id):
         s = syn_params.get('initW_lognormal_std')
         mean = np.log(m) - 0.5 * np.log((s/m)**2+1)
         std = np.sqrt(np.log((s/m)**2 + 1))
-        lsyn.initW = float(np.random.lognormal(mean,std, 1)) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
+        log_weight = float(np.random.lognormal(mean,std, 1))
+        if log_weight >= float(5*mean):
+            log_weight = float(5*mean)
+        lsyn.initW = float(log_weight) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
 
     if syn_params.get('Wmax'):
         lsyn.Wmax = float(syn_params['Wmax']) * lsyn.initW # par.x(1) * lsyn.initW
@@ -292,7 +295,10 @@ def Chn2Pyr(syn_params, sec_x, sec_id):
         s = syn_params.get('initW_lognormal_std')
         mean = np.log(m) - 0.5 * np.log((s/m)**2+1)
         std = np.sqrt(np.log((s/m)**2 + 1))
-        lsyn.initW = float(np.random.lognormal(mean,std, 1)) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
+        log_weight = float(np.random.lognormal(mean,std, 1))
+        if log_weight >= float(5*mean):
+            log_weight = float(5*mean)
+        lsyn.initW = float(log_weight) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
         #print(lsyn.initW)
         #print(lsyn.initW)
     if syn_params.get('Wmax'):

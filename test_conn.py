@@ -17,7 +17,7 @@ np.random.seed(seed)
 print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 7  # 147
+numAAC = 1  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
@@ -494,29 +494,29 @@ thalamus.save_nodes(output_dir='network')
 
 
 t_stim = 500.0
-
-#build_env_bionet(base_dir='./',
-#                network_dir='./network',
-#                config_file='config.json',
-#                tstop=t_stim, dt=0.1,
-#                report_vars=['v'],
-#                components_dir='biophys_components',
-#                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
-#                current_clamp={
-#                     'amp': 0.500,
-#                     'delay': 200.0,
-#                     'duration': 15.0,
-#                     'gids': [0, 1, 3, 4, 5]
-#                },
-#                clamp_reports=['se'],
-#                se_voltage_clamp={
-#                    'amps':[[-70, -70, -70]],
-#                    'durations': [[t_stim, t_stim, t_stim]],
-#                    'gids': [2],
-#                    'rs': [0.01],
-#                  },
-#                compile_mechanisms=False)
-
+"""
+build_env_bionet(base_dir='./',
+                network_dir='./network',
+                config_file='config.json',
+                tstop=t_stim, dt=0.1,
+                report_vars=['v'],
+                components_dir='biophys_components',
+                spikes_inputs=[('bg_pn', 'bg_pn_spikes.h5')],
+                current_clamp={
+                     'amp': 0.500,
+                     'delay': 200.0,
+                     'duration': 15.0,
+                     'gids': [0, 1, 3, 4, 5]
+                },
+                clamp_reports=['se'],
+                se_voltage_clamp={
+                    'amps':[[-70, -70, -70]],
+                    'durations': [[t_stim, t_stim, t_stim]],
+                    'gids': [2],
+                    'rs': [0.01],
+                  },
+                compile_mechanisms=False)
+"""
 
 psg = PoissonSpikeGenerator(population='bg_pn')
 psg.add(node_ids=range(numPyr),  # need same number as cells

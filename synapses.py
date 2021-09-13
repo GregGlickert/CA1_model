@@ -5,6 +5,12 @@ import os
 from bmtk.simulator.bionet.pyfunction_cache import add_synapse_model
 from neuron import h
 import numpy as np
+import random
+
+#Give same syn weight everytime with set seed
+seed = 999
+random.seed(seed)
+np.random.seed(seed)
 
 def Bg2Int(syn_params, sec_x, sec_id):
     """Create a bg2int synapse
@@ -136,8 +142,8 @@ def Pyr2Int(syn_params, sec_x, sec_id):
         mean = np.log(m) - 0.5 * np.log((s/m)**2+1)
         std = np.sqrt(np.log((s/m)**2 + 1))
         log_weight = float(np.random.lognormal(mean,std, 1))
-        if log_weight >= float(5*mean):
-            log_weight = float(5*mean)
+        if log_weight >= float(5*m):
+            log_weight = float(5*m)
         lsyn.initW = float(log_weight) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
 
     if syn_params.get('Wmax'):
@@ -296,8 +302,8 @@ def Chn2Pyr(syn_params, sec_x, sec_id):
         mean = np.log(m) - 0.5 * np.log((s/m)**2+1)
         std = np.sqrt(np.log((s/m)**2 + 1))
         log_weight = float(np.random.lognormal(mean,std, 1))
-        if log_weight >= float(5*mean):
-            log_weight = float(5*mean)
+        if log_weight >= float(5*m):
+            log_weight = float(5*m)
         lsyn.initW = float(log_weight) # par.x(0) * rC.uniform(0.5,1.0)//rand.normal(0.5,1.5) //`rand.repick()
         #print(lsyn.initW)
         #print(lsyn.initW)

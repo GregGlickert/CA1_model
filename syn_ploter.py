@@ -1,7 +1,7 @@
 import h5py
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+"""
 path = "updated_conns/biophysical_biophysical_edges.h5"
 f = h5py.File(path, 'r')
 
@@ -30,7 +30,7 @@ plt.title('syn_weight from bmtk targeting AAC')
 plt.ylabel('# of synapses')
 plt.xlabel('syn_weight')
 plt.show()
-
+"""
 path = "output/syns_chn2pyr.h5"
 f = h5py.File(path, 'r')
 

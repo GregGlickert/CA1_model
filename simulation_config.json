@@ -23,19 +23,18 @@
       "module": "IClamp",
       "node_set": "all",
       "gids": [
-        1094,
-        1141,
-        18,
-        1065
+        13,
+        5,
+        31259
       ],
       "amp": 0.5,
       "delay": 200.0,
-      "duration": 15.0
+      "duration": 7.0
     },
     "bg_pn_spikes": {
       "input_type": "spikes",
       "module": "sonata",
-      "input_file": "$BASE_DIR/CA1_inputs/bg_pn_spikes.h5",
+      "input_file": "$BASE_DIR/bg_pn_spikes.h5",
       "node_set": "bg_pn"
     }
   },

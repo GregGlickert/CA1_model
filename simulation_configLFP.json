@@ -23,14 +23,13 @@
       "module": "IClamp",
       "node_set": "all",
       "gids": [
-        4,
-        6,
         13,
-        31206
+        5,
+        31259
       ],
       "amp": 0.5,
       "delay": 200.0,
-      "duration": 15.0
+      "duration": 7.0
     },
     "bg_pn_spikes": {
       "input_type": "spikes",

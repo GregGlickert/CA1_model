@@ -17,9 +17,9 @@ def zscore(x):
     return (x - np.mean(x))/np.std(x)
 
 
-tsim = 1000
+tsim = 300
 
-lfp_file = "output1/ecp.h5"
+lfp_file = "output/ecp.h5"
 
 f = h5py.File(lfp_file,'r')
 lfp = list(f['ecp']['data'])
@@ -47,7 +47,7 @@ plt.ylabel('Power')
 plt.show()
 
 
-lfp_file = "output1/ecp.h5"
+lfp_file = "output/ecp.h5"
 
 f = h5py.File(lfp_file,'r')
 lfp = list(f['ecp']['data'])

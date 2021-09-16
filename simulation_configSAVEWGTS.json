@@ -85,6 +85,7 @@
       "sections": "all",
       "syn_type": "int2pyr",
       "file_name": "syns_int2pyr_W.h5"
+    }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",
   "network": "$BASE_DIR/circuit_config.json"

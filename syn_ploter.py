@@ -1,6 +1,5 @@
 import h5py
 import matplotlib.pyplot as plt
-import seaborn as sns
 """
 path = "updated_conns/biophysical_biophysical_edges.h5"
 f = h5py.File(path, 'r')
@@ -40,12 +39,12 @@ print(len(W[0]))
 for i in range(len(W[0])):
     weight.append(W[0][i])
 
-sns.set_style('darkgrid')
-sns.histplot(weight, kde=True)
+
+plt.hist(weight, bins=30)
 plt.title('syn_weight from inside mod file targeting PNS')
 plt.ylabel('# of synapses')
 plt.xlabel('syn_weight')
-plt.show()
+plt.savefig('fig1.png')
 
 
 path = 'output/syns_pyr2int_ampa.h5'
@@ -56,11 +55,10 @@ weight = []
 for i in range(len(W[0])):
     weight.append(W[0][i])
 
-sns.set_style('darkgrid')
-sns.histplot(weight, kde=True)
+plt.hist(weight, bins=30)
 plt.title('syn_weight from inside mod file W_ampa targeting AAC')
 plt.ylabel('# of synapses')
 plt.xlabel('syn_weight')
-plt.show()
+plt.savefig('fig2.png')
 
 

@@ -21,7 +21,7 @@ numAAC = 147  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
-numPV = 10  # 553
+numPV = 553  # 553
 numPyr = 31150  # 31150   1000
 # arrays for cell location csv
 cell_name = []
@@ -146,18 +146,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SO, 0)), numPV_inSO, repla
 pos = pos_list_SO[inds, :]
 
 # place cell
-#net.add_nodes(N=numPV_inSO, pop_name='PV',
-#              positions=positions_list(positions=pos),
-#              mem_potential='e',
-#              model_type='biophysical',
-#              model_template='hoc:pvbasketcell',
-#              morphology=None)
+net.add_nodes(N=numPV_inSO, pop_name='PV',
+              positions=positions_list(positions=pos),
+              mem_potential='e',
+              model_type='biophysical',
+              model_template='hoc:pvbasketcell',
+              morphology=None)
 # save location in array delete used locations
-#for i in range(numPV_inSO):
-#    cell_name.append("PV in SO layer")
-#    cell_x.append(pos[i][0])
-#    cell_y.append(pos[i][1])
-#    cell_z.append(pos[i][2])
+for i in range(numPV_inSO):
+    cell_name.append("PV in SO layer")
+    cell_x.append(pos[i][0])
+    cell_y.append(pos[i][1])
+    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SO, inds, 0)
 
@@ -226,18 +226,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SP, 0)), numPV_inSP, repla
 pos = pos_list_SP[inds, :]
 
 # place cell
-#net.add_nodes(N=numPV_inSP, pop_name='PV',
-#              positions=positions_list(positions=pos),
-#              mem_potential='e',
-#              model_type='biophysical',
-#              model_template='hoc:pvbasketcell',
-#              morphology=None)
+net.add_nodes(N=numPV_inSP, pop_name='PV',
+              positions=positions_list(positions=pos),
+              mem_potential='e',
+              model_type='biophysical',
+              model_template='hoc:pvbasketcell',
+              morphology=None)
 # save location in array delete used locations
-#for i in range(numPV_inSP):
-#    cell_name.append("PV in SP layer")
-#    cell_x.append(pos[i][0])
-#    cell_y.append(pos[i][1])
-#    cell_z.append(pos[i][2])
+for i in range(numPV_inSP):
+    cell_name.append("PV in SP layer")
+    cell_x.append(pos[i][0])
+    cell_y.append(pos[i][1])
+    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SP, inds, 0)
 
@@ -310,18 +310,18 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SR, 0)), numPV_inSR, repla
 pos = pos_list_SR[inds, :]
 
 # place cell
-#net.add_nodes(N=numPV_inSR, pop_name='PV',
-#              positions=positions_list(positions=pos),
-#              mem_potential='e',
-#              model_type='biophysical',
-#              model_template='hoc:pvbasketcell',
-#              morphology=None)
+net.add_nodes(N=numPV_inSR, pop_name='PV',
+              positions=positions_list(positions=pos),
+              mem_potential='e',
+              model_type='biophysical',
+              model_template='hoc:pvbasketcell',
+              morphology=None)
 # save location in array delete used locations
-#for i in range(numPV_inSR):
-#    cell_name.append("PV in SR layer")
-#    cell_x.append(pos[i][0])
-#    cell_y.append(pos[i][1])
-#   cell_z.append(pos[i][2])
+for i in range(numPV_inSR):
+    cell_name.append("PV in SR layer")
+    cell_x.append(pos[i][0])
+    cell_y.append(pos[i][1])
+    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SR, inds, 0)
 
@@ -441,7 +441,7 @@ print('AAC connections')
 conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      iterator='one_to_one',
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.06, 'max_dist': 400},  # was 0.05
+                     connection_params={'prob': 0.072, 'max_dist': 400},  # was 0.05
                      syn_weight=1,
                      #weight_function='lognormal',
                      #weight_sigma=0.1,
@@ -459,7 +459,7 @@ conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.009631, 'max_dist': 400}, # was 0.007631  0.293231
+                     connection_params={'prob': 0.009640, 'max_dist': 400}, # was 0.007631  0.293231
                      syn_weight=1,
                      #weight_function='lognormal',
                      #weight_sigma=1,
@@ -474,31 +474,56 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
 # dynamics_params='PN2INT.json',
 # model_template=syn['PN2INT.json']['level_of_detail'],
 # convergence of 17
-"""
+
 print('PV connections')
 conn = net.add_edges(source={'pop_name': 'PV'}, target={'pop_name': 'Pyr'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.0436, 'max_dist': 500},
+                     connection_params={'prob': 0.05366, 'max_dist': 400}, #was 0.0436
                      syn_weight=1,
                      delay=0.1,
-                     dynamics_params='GABA_InhToExc.json',
-                     model_template='exp2syn',
-                     distance_range=[0.0, 500.0],
+                     dynamics_params='INT2PN.json',
+                     model_template=syn['INT2PN.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
                      target_sections=['somatic'],
                      sec_id=0,
                      sec_x=0.5)
 # convergence of 424 but actually a bit low
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'PV'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.01917, 'max_dist': 500},
+                     connection_params={'prob': 0.0238, 'max_dist': 400}, #was 0.01917
                      syn_weight=1,
                      delay=0.1,
-                     dynamics_params='AMPA_ExcToInh.json',
-                     model_template='exp2syn',
-                     distance_range=[0.0, 500.0],
+                     dynamics_params='PN2INT.json',
+                     model_template=syn['PN2INT.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
                      target_sections=['apical'],
+                     sec_id=4,
+                     sec_x=0.5)
+#con 39
+conn = net.add_edges(source={'pop_name': 'PV'}, target={'pop_name': 'AAC'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.14, 'max_dist': 400},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='INT2INT.json',
+                     model_template=syn['INT2INT.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
+                     target_sections=['somatic'],
                      sec_id=0,
                      sec_x=0.5)
+# also 39
+conn = net.add_edges(source={'pop_name': 'PV'}, target={'pop_name': 'PV'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.14, 'max_dist': 400},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='INT2INT.json',
+                     model_template=syn['INT2INT.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
+                     target_sections=['somatic'],
+                     sec_id=0,
+                     sec_x=0.5)
+"""
 print('olm connections')
 # converge 8
 conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'Pyr'},

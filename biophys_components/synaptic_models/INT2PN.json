@@ -1,10 +1,10 @@
 {
-    "level_of_detail": "chn2pyr",
+    "level_of_detail": "int2pyr",
     "AlphaTmax_gaba": "1.52",
     "Beta_gaba": "0.14",
     "Cdur_gaba": "0.7254",
     "gbar_gaba": "0.006",
-    "Erev_gaba": "-50",
+    "Erev_gaba": "-75",
     "initW": "1",
     "initW_lognormal_mean": 1,
     "initW_lognormal_std": 1.3,

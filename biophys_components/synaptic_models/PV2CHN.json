@@ -1,5 +1,5 @@
 {
-    "level_of_detail": "int2int",
+    "level_of_detail": "pv2chn",
     "AlphaTmax_gaba": "1.52",
     "Beta_gaba": "0.14",
     "Cdur_gaba": "0.7254",

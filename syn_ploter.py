@@ -1,5 +1,6 @@
 import h5py
 import matplotlib.pyplot as plt
+import numpy as np
 """
 path = "updated_conns/biophysical_biophysical_edges.h5"
 f = h5py.File(path, 'r')
@@ -29,7 +30,7 @@ plt.title('syn_weight from bmtk targeting AAC')
 plt.ylabel('# of synapses')
 plt.xlabel('syn_weight')
 plt.show()
-"""
+
 path = "output/syns_chn2pyr.h5"
 f = h5py.File(path, 'r')
 
@@ -60,5 +61,21 @@ plt.title('syn_weight from inside mod file W_ampa targeting AAC')
 plt.ylabel('# of synapses')
 plt.xlabel('syn_weight')
 plt.savefig('fig2.png')
+"""
 
+m = 1
+s = 1.3
+weight = []
+mean = np.log(m) - 0.5 * np.log((s/m)**2+1)
+std = np.sqrt(np.log((s/m)**2 + 1))
+for i in range(1000000):
+    log_weight = float(np.random.lognormal(mean,std, 1))
+    if log_weight >= float(5*m):
+        log_weight = float(5*m)
+    weight.append(float(log_weight))
 
+plt.hist(weight, bins=30)
+plt.title('test weight')
+plt.ylabel('# of synapses')
+plt.xlabel('syn_weight')
+plt.show()

@@ -30,12 +30,6 @@
       "amp": 0.5,
       "delay": 200.0,
       "duration": 7.0
-    },
-    "bg_pn_spikes": {
-      "input_type": "spikes",
-      "module": "sonata",
-      "input_file": "$BASE_DIR/bg_pn_spikes.h5",
-      "node_set": "bg_pn"
     }
   },
   "output": {

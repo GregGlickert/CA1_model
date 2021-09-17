@@ -1,5 +1,5 @@
 {
-    "level_of_detail": "pyr2int",
+    "level_of_detail": "pyr2pv",
     "AlphaTmax_ampa": "10.1571",
     "Beta_ampa": "0.4167",
     "Cdur_ampa": "0.713",

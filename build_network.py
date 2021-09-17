@@ -17,12 +17,12 @@ np.random.seed(seed)
 print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 147  # 147
+numAAC = 10  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
-numPV = 553  # 553
-numPyr = 31150  # 31150   1000
+numPV = 10  # 553
+numPyr = 10  # 31150   1000
 # arrays for cell location csv
 cell_name = []
 cell_x = []

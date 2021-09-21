@@ -10,7 +10,7 @@ import h5py
 
 _ = plot_raster(config_file='simulation_config.json', group_by='pop_name', times=(200,250),title="raster")
 
-_ = plot_traces(config_file='simulation_config.json', node_ids=[31260], report_name='v_report', title='voltage report for AAC V-CLAMP')
+_ = plot_traces(config_file='simulation_config.json', node_ids=[31335], report_name='v_report', title='voltage report for AAC V-CLAMP')
 #df = to_dataframe(config_file='simulation_config.json')
 
 

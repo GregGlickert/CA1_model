@@ -17,17 +17,12 @@ np.random.seed(seed)
 print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
-numAAC = 10  # 147
+numAAC = 147  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
-<<<<<<< Updated upstream
-numPV = 10  # 553
-numPyr = 10  # 31150   1000
-=======
 numPV = 553  # 553
 numPyr = 31150  # 31150
->>>>>>> Stashed changes
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -131,14 +126,6 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SO, 0)), numOLM, replace=F
 pos = pos_list_SO[inds, :]
 
 # place cell
-<<<<<<< Updated upstream
-#net.add_nodes(N=numOLM, pop_name='OLM',
-#              positions=positions_list(positions=pos),
-#              mem_potential='e',
-#              model_type='biophysical',
-#              model_template='hoc:olmcell',
-#              morphology=None)
-=======
 net.add_nodes(N=numOLM, pop_name='OLM',
               positions=positions_list(positions=pos),
               mem_potential='e',
@@ -146,13 +133,12 @@ net.add_nodes(N=numOLM, pop_name='OLM',
               model_template='hoc:olmcell',
               rotation_angle_zaxis=(np.pi / 2),  # 90 degrees
               morphology=None)
->>>>>>> Stashed changes
 # save location in array delete used locations
-#for i in range(numOLM):
-#    cell_name.append("OLM in SO layer")
-#    cell_x.append(pos[i][0])
-#    cell_y.append(pos[i][1])
-#    cell_z.append(pos[i][2])
+for i in range(numOLM):
+    cell_name.append("OLM in SO layer")
+    cell_x.append(pos[i][0])
+    cell_y.append(pos[i][1])
+    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SO, inds, 0)
 

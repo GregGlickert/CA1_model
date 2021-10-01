@@ -22,7 +22,7 @@ numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 164  # 164
 numPV = 553  # 553
-numPyr = 31150  # 31150   1000
+numPyr = 31150  # 31150
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -528,7 +528,7 @@ print('olm connections')
 # converge 8
 conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'Pyr'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.07615, 'max_dist': 400},
+                     connection_params={'prob': 0.07915, 'max_dist': 400},
                      syn_weight=1,
                      delay=0.1,
                      dynamics_params='OLM2PN.json',
@@ -581,7 +581,7 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'OLM'},
                      syn_weight=1,
                      delay=0.1,
                      dynamics_params='PN2OLM.json',
-                     model_template=syn['PVN2OLM.json']['level_of_detail'],
+                     model_template=syn['PN2OLM.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['basal'],
                      sec_id=0,
@@ -616,25 +616,25 @@ conn = net.add_edges(source={'pop_name': 'NGF'}, target={'pop_name': 'Pyr'},
                      sec_x=0.5)
 """
 
-print('background connections')
-net.add_edges(source=background_PN.nodes(), target=net.nodes(pop_name='Pyr'),
-              connection_rule=one_to_one,
-              syn_weight=1,
-              target_sections=['somatic'],
-              delay=0.1,
-              distance_range=[0.0, 300.0],
-              dynamics_params='AMPA_ExcToExc.json',
-              model_template='exp2syn')
+#print('background connections')
+#net.add_edges(source=background_PN.nodes(), target=net.nodes(pop_name='Pyr'),
+#              connection_rule=one_to_one,
+#              syn_weight=1,
+#              target_sections=['somatic'],
+#              delay=0.1,
+#              distance_range=[0.0, 300.0],
+#              dynamics_params='AMPA_ExcToExc.json',
+#              model_template='exp2syn')
 
 print("building bio cells")
 net.build()
 print("Saving bio cells")
 net.save(output_dir='network')
 
-print("building virtual cells")
-background_PN.build()
-print("saving virtual cells")
-background_PN.save_nodes(output_dir='network')
+#print("building virtual cells")
+#background_PN.build()
+#print("saving virtual cells")
+#background_PN.save_nodes(output_dir='network')
 
 #print(count)
 
@@ -665,13 +665,13 @@ t_stim = 1000.0
 #                compile_mechanisms=False)
 
 
-psg = PoissonSpikeGenerator(population='bg_pn')
-psg.add(node_ids=range(numPyr),  # need same number as cells
-        firing_rate=0.000005,    # 1 spike every 5 seconds Hz
-        times=(0.0, t_stim/1000))  # time is in seconds for some reason
-psg.to_sonata('CA1_inputs/bg_pn_spikes.h5')
+#psg = PoissonSpikeGenerator(population='bg_pn')
+#psg.add(node_ids=range(numPyr),  # need same number as cells
+#        firing_rate=0.000005,    # 1 spike every 5 seconds Hz
+#        times=(0.0, t_stim/1000))  # time is in seconds for some reason
+#psg.to_sonata('CA1_inputs/bg_pn_spikes.h5')
 
-print('Number of background spikes to PN cells: {}'.format(psg.n_spikes()))
+#print('Number of background spikes to PN cells: {}'.format(psg.n_spikes()))
 
 
 

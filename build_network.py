@@ -1,5 +1,5 @@
 from bmtk.builder import NetworkBuilder
-from bmtk.builder.auxi.node_params import positions_list
+from bmtk.builder.auxi.node_params import positions_list, xiter_random
 from bmtk.utils.sim_setup import build_env_bionet
 from bmtk.utils.reports.spike_trains import PoissonSpikeGenerator
 from math import exp
@@ -21,8 +21,13 @@ numAAC = 10  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
 numOLM = 10  # 164
+<<<<<<< Updated upstream
 numPV = 10  # 553
 numPyr = 10  # 31150   1000
+=======
+numPV = 553  # 553
+numPyr = 31150  # 31150
+>>>>>>> Stashed changes
 # arrays for cell location csv
 cell_name = []
 cell_x = []
@@ -88,6 +93,7 @@ net.add_nodes(N=numAAC_inSO, pop_name='AAC',
               mem_potential='e',
               model_type='biophysical',
               model_template='hoc:axoaxoniccell',
+              rotation_angle_zaxis=(np.pi/2), #90 degrees
               morphology=None)
 # save location in array delete used locations
 for i in range(numAAC_inSO):
@@ -125,12 +131,22 @@ inds = np.random.choice(np.arange(0, np.size(pos_list_SO, 0)), numOLM, replace=F
 pos = pos_list_SO[inds, :]
 
 # place cell
+<<<<<<< Updated upstream
 #net.add_nodes(N=numOLM, pop_name='OLM',
 #              positions=positions_list(positions=pos),
 #              mem_potential='e',
 #              model_type='biophysical',
 #              model_template='hoc:olmcell',
 #              morphology=None)
+=======
+net.add_nodes(N=numOLM, pop_name='OLM',
+              positions=positions_list(positions=pos),
+              mem_potential='e',
+              model_type='biophysical',
+              model_template='hoc:olmcell',
+              rotation_angle_zaxis=(np.pi / 2),  # 90 degrees
+              morphology=None)
+>>>>>>> Stashed changes
 # save location in array delete used locations
 #for i in range(numOLM):
 #    cell_name.append("OLM in SO layer")
@@ -151,6 +167,7 @@ net.add_nodes(N=numPV_inSO, pop_name='PV',
               mem_potential='e',
               model_type='biophysical',
               model_template='hoc:pvbasketcell',
+              rotation_angle_zaxis=(np.pi/2), #90 degrees
               morphology=None)
 # save location in array delete used locations
 for i in range(numPV_inSO):
@@ -171,6 +188,7 @@ net.add_nodes(N=numPyr, pop_name='Pyr',
               mem_potential='e',
               model_type='biophysical',
               model_template='hoc:pyramidalcell',
+              rotation_angle_zaxis=(np.pi/2), #90 degrees
               morphology=None)
 for i in range(numPyr):
     cell_name.append("Pyr in SP layer")
@@ -189,6 +207,7 @@ net.add_nodes(N=numAAC_inSP, pop_name='AAC',
               mem_potential='e',
               model_type='biophysical',
               model_template='hoc:axoaxoniccell',
+              rotation_angle_zaxis=(np.pi/2), #90 degrees
               morphology=None)
 # save location in array delete used locations
 for i in range(numAAC_inSP):
@@ -231,6 +250,7 @@ net.add_nodes(N=numPV_inSP, pop_name='PV',
               mem_potential='e',
               model_type='biophysical',
               model_template='hoc:pvbasketcell',
+              rotation_angle_zaxis=(np.pi/2), #90 degrees
               morphology=None)
 # save location in array delete used locations
 for i in range(numPV_inSP):
@@ -252,6 +272,7 @@ net.add_nodes(N=numAAC_inSR, pop_name='AAC',
               mem_potential='e',
               model_type='biophysical',
               model_template='hoc:axoaxoniccell',
+              rotation_angle_zaxis=(np.pi/2), #90 degrees
               morphology=None)
 # save location in array delete used locations
 for i in range(numAAC_inSR):
@@ -315,6 +336,7 @@ net.add_nodes(N=numPV_inSR, pop_name='PV',
               mem_potential='e',
               model_type='biophysical',
               model_template='hoc:pvbasketcell',
+              rotation_angle_zaxis=(np.pi/2), #90 degrees
               morphology=None)
 # save location in array delete used locations
 for i in range(numPV_inSR):
@@ -549,6 +571,11 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'OLM'},
                      target_sections=['basal'],
                      sec_id=0,
                      sec_x=0.5)
+<<<<<<< Updated upstream
+=======
+"""
+"""
+>>>>>>> Stashed changes
 #convergence of 13
 print("CCK connections")
 conn = net.add_edges(source={'pop_name': 'CCK'}, target={'pop_name': 'Pyr'},

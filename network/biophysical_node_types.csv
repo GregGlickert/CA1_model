@@ -1,9 +1,9 @@
-node_type_id model_type morphology rotation_angle_zaxis pop_name model_template mem_potential
-100 biophysical  1.5707963267948966 AAC hoc:axoaxoniccell e
-101 biophysical  1.5707963267948966 OLM hoc:olmcell e
-102 biophysical  1.5707963267948966 PV hoc:pvbasketcell e
-103 biophysical  1.5707963267948966 Pyr hoc:pyramidalcell e
-104 biophysical  1.5707963267948966 AAC hoc:axoaxoniccell e
-105 biophysical  1.5707963267948966 PV hoc:pvbasketcell e
-106 biophysical  1.5707963267948966 AAC hoc:axoaxoniccell e
-107 biophysical  1.5707963267948966 PV hoc:pvbasketcell e
+node_type_id pop_name model_template rotation_angle_zaxis morphology mem_potential model_type
+100 AAC hoc:axoaxoniccell 1.5707963267948966  e biophysical
+101 OLM hoc:olmcell 1.5707963267948966  e biophysical
+102 PV hoc:pvbasketcell 1.5707963267948966  e biophysical
+103 Pyr hoc:pyramidalcell 1.5707963267948966  e biophysical
+104 AAC hoc:axoaxoniccell 1.5707963267948966  e biophysical
+105 PV hoc:pvbasketcell 1.5707963267948966  e biophysical
+106 AAC hoc:axoaxoniccell 1.5707963267948966  e biophysical
+107 PV hoc:pvbasketcell 1.5707963267948966  e biophysical

@@ -1,12 +1,12 @@
-edge_type_id target_query source_query dynamics_params distance_range sec_x sec_id target_sections model_template syn_weight delay
-100 pop_name=='Pyr' pop_name=='AAC' CHN2PN.json "[0.0, 400.0]" 0.5 4 ['axonal'] chn2pyr 1 0.1
-101 pop_name=='AAC' pop_name=='Pyr' PN2CHN.json "[0.0, 400.0]" 0.5 4 ['apical'] pyr2chn 1 0.1
-102 pop_name=='Pyr' pop_name=='PV' PV2PN.json "[0.0, 400.0]" 0.5 0 ['somatic'] pv2pyr 1 0.1
-103 pop_name=='PV' pop_name=='Pyr' PN2PV.json "[0.0, 400.0]" 0.5 4 ['apical'] pyr2pv 1 0.1
-104 pop_name=='AAC' pop_name=='PV' PV2CHN.json "[0.0, 400.0]" 0.5 0 ['somatic'] pv2chn 1 0.1
-105 pop_name=='PV' pop_name=='PV' PV2PV.json "[0.0, 400.0]" 0.5 0 ['somatic'] pv2pv 1 0.1
-106 pop_name=='Pyr' pop_name=='OLM' OLM2PN.json "[0.0, 400.0]" 0.5 2 ['apical'] olm2pyr 1 0.1
-107 pop_name=='AAC' pop_name=='OLM' OLM2CHN.json "[0.0, 400.0]" 0.5 2 ['apical'] olm2chn 1 0.1
-108 pop_name=='PV' pop_name=='OLM' OLM2PV.json "[0.0, 400.0]" 0.5 2 ['apical'] olm2pv 1 0.1
-109 pop_name=='OLM' pop_name=='OLM' OLM2OLM.json "[0.0, 400.0]" 0.5 2 ['basal'] olm2olm 1 0.1
-110 pop_name=='OLM' pop_name=='Pyr' PN2OLM.json "[0.0, 400.0]" 0.5 0 ['basal'] pyr2olm 1 0.1
+edge_type_id target_query source_query model_template delay distance_range sec_x target_sections syn_weight sec_id dynamics_params
+100 pop_name=='Pyr' pop_name=='AAC' chn2pyr 0.1 "[0.0, 400.0]" 0.5 ['axonal'] 1 4 CHN2PN.json
+101 pop_name=='AAC' pop_name=='Pyr' pyr2chn 0.1 "[0.0, 400.0]" 0.5 ['apical'] 1 4 PN2CHN.json
+102 pop_name=='Pyr' pop_name=='PV' pv2pyr 0.1 "[0.0, 400.0]" 0.5 ['somatic'] 1 0 PV2PN.json
+103 pop_name=='PV' pop_name=='Pyr' pyr2pv 0.1 "[0.0, 400.0]" 0.5 ['apical'] 1 4 PN2PV.json
+104 pop_name=='AAC' pop_name=='PV' pv2chn 0.1 "[0.0, 400.0]" 0.5 ['somatic'] 1 0 PV2CHN.json
+105 pop_name=='PV' pop_name=='PV' pv2pv 0.1 "[0.0, 400.0]" 0.5 ['somatic'] 1 0 PV2PV.json
+106 pop_name=='Pyr' pop_name=='OLM' olm2pyr 0.1 "[0.0, 400.0]" 0.5 ['apical'] 1 2 OLM2PN.json
+107 pop_name=='AAC' pop_name=='OLM' olm2chn 0.1 "[0.0, 400.0]" 0.5 ['apical'] 1 2 OLM2CHN.json
+108 pop_name=='PV' pop_name=='OLM' olm2pv 0.1 "[0.0, 400.0]" 0.5 ['apical'] 1 2 OLM2PV.json
+109 pop_name=='OLM' pop_name=='OLM' olm2olm 0.1 "[0.0, 400.0]" 0.5 ['basal'] 1 2 OLM2OLM.json
+110 pop_name=='OLM' pop_name=='Pyr' pyr2olm 0.1 "[0.0, 400.0]" 0.5 ['basal'] 1 0 PN2OLM.json

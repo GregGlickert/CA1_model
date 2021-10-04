@@ -1,3 +1,9 @@
-2021-10-03 22:26:16,614 [INFO] Created log file
-2021-10-03 22:26:16,800 [INFO] Building cells.
-2021-10-03 22:26:17,010 [INFO] Building recurrent connections
+2021-10-01 14:29:03,932 [INFO] Created log file
+2021-10-01 14:29:03,934 [INFO] Running NEURON with mpi (60 cores).
+2021-10-01 14:29:20,676 [INFO] Building cells.
+2021-10-01 14:33:41,569 [INFO] Building recurrent connections
+2021-10-01 14:34:39,071 [INFO] Running simulation for 300.000 ms with the time step 0.100 ms
+2021-10-01 14:34:39,071 [INFO] Starting timestep: 0 at t_sim: 0.000 ms
+2021-10-01 14:34:39,071 [INFO] Block save every 3000 steps
+2021-10-01 17:29:49,187 [INFO]     step:3000 t_sim:300.00 ms
+2021-10-01 17:29:49,747 [INFO] Simulation completed in 2.0 hours, 55.0 minutes and 10.68 seconds 

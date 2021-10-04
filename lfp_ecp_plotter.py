@@ -6,6 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 import h5py
 import matplotlib.pyplot as plt
 from scipy.signal import welch
+from bmtk.analyzer.compartment import plot_traces
 import scipy.signal as ss
 
 def moving_average(a, n=3) :
@@ -18,7 +19,7 @@ def zscore(x):
 
 
 tsim = 300
-
+"""
 lfp_file = "output/ecp.h5"
 
 f = h5py.File(lfp_file,'r')
@@ -45,13 +46,19 @@ plt.title('LFP PSD')
 plt.xlabel('Frequency')
 plt.ylabel('Power')
 plt.show()
-
+"""
 
 lfp_file = "output/ecp.h5"
-
 f = h5py.File(lfp_file,'r')
 lfp = list(f['ecp']['data'])
 lfp_arr = np.asarray(lfp)
-plt.plot(np.arange(0,tsim,0.1),lfp_arr)
+lfp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+for i in range(13):
+    lfp[i] = lfp_arr[:,i]
+    lfp[i] = [x+i for x in lfp[i]]
+    plt.plot(np.arange(0,tsim,0.1),lfp[i])
+plt.xlabel('time')
+plt.ylabel('channel')
+plt.title("lfp for CA1")
 plt.show()
 

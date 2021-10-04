@@ -15,7 +15,7 @@ import numpy as np
 from neuron import h
 import synapses
 import pandas as pd
-import run
+
 
 
 def save_connections(graph, sim):

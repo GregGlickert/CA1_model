@@ -10,6 +10,6 @@ rm -rf output
 
 echo "Running CA1 model at $(date)"
 
-mpiexec nrniv -mpi -quiet -python run_network.py simulation_configV_CLAMP.json
+mpiexec nrniv -mpi -quiet -python run_network.py simulation_config.json
 
 echo "Done running CA1 model at $(date)"

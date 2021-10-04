@@ -20,7 +20,7 @@ net = NetworkBuilder("biophysical")
 numAAC = 147  # 147
 numCCK = 10  # 360
 numNGF = 10  # 580
-numOLM = 10  # 164
+numOLM = 164  # 164
 numPV = 553  # 553
 numPyr = 31150  # 31150
 # arrays for cell location csv
@@ -134,11 +134,11 @@ net.add_nodes(N=numOLM, pop_name='OLM',
               rotation_angle_zaxis=(np.pi / 2),  # 90 degrees
               morphology=None)
 # save location in array delete used locations
-for i in range(numOLM):
-    cell_name.append("OLM in SO layer")
-    cell_x.append(pos[i][0])
-    cell_y.append(pos[i][1])
-    cell_z.append(pos[i][2])
+#for i in range(numOLM):
+#    cell_name.append("OLM in SO layer")
+#    cell_x.append(pos[i][0])
+#    cell_y.append(pos[i][1])
+#    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SO, inds, 0)
 
@@ -531,37 +531,71 @@ conn = net.add_edges(source={'pop_name': 'PV'}, target={'pop_name': 'PV'},
                      target_sections=['somatic'],
                      sec_id=0,
                      sec_x=0.5)
-"""
+
 print('olm connections')
 # converge 8
 conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'Pyr'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.07015, 'max_dist': 500},
+                     connection_params={'prob': 0.07915, 'max_dist': 400},
                      syn_weight=1,
                      delay=0.1,
-                     dynamics_params='GABA_InhToExc.json',
-                     model_template='exp2syn',
-                     distance_range=[0.0, 500.0],
+                     dynamics_params='OLM2PN.json',
+                     model_template=syn['OLM2PN.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
                      target_sections=['apical'],
-                     sec_id=0,
+                     sec_id=2,
                      sec_x=0.5)
+#convergence 8
+conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'CHN'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.07615, 'max_dist': 400},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='OLM2CHN.json',
+                     model_template=syn['OLM2CHN.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
+                     target_sections=['apical'],
+                     sec_id=2,
+                     sec_x=0.5)
+#convergence 8
+conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'PV'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.07615, 'max_dist': 400},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='OLM2PV.json',
+                     model_template=syn['OLM2PV.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
+                     target_sections=['apical'],
+                     sec_id=2,
+                     sec_x=0.5)
+#convergence of 6
+conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'OLM'},
+                     connection_rule=n_connections,
+                     connection_params={'prob': 0.07615, 'max_dist': 400},
+                     syn_weight=1,
+                     delay=0.1,
+                     dynamics_params='OLM2OLM.json',
+                     model_template=syn['OLM2OLM.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
+                     target_sections=['basal'],
+                     sec_id=2,
+                     sec_x=0.5)
+
 # converge 2378
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'OLM'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.1095, 'max_dist': 500},
+                     connection_params={'prob': 0.1295, 'max_dist': 400},
                      syn_weight=1,
                      delay=0.1,
-                     dynamics_params='AMPA_ExcToInh.json',
-                     model_template='exp2syn',
-                     distance_range=[0.0, 500.0],
+                     dynamics_params='PN2OLM.json',
+                     model_template=syn['PN2OLM.json']['level_of_detail'],
+                     distance_range=[0.0, 400.0],
                      target_sections=['basal'],
                      sec_id=0,
                      sec_x=0.5)
-<<<<<<< Updated upstream
-=======
+
 """
-"""
->>>>>>> Stashed changes
 #convergence of 13
 print("CCK connections")
 conn = net.add_edges(source={'pop_name': 'CCK'}, target={'pop_name': 'Pyr'},

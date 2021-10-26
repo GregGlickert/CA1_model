@@ -8,46 +8,13 @@ import matplotlib.pyplot as plt
 from scipy.signal import welch
 from bmtk.analyzer.compartment import plot_traces
 import scipy.signal as ss
+from scipy.signal import butter, lfilter, resample, filtfilt
+from scipy.stats import zscore
+from scipy.signal import freqz
 
-def moving_average(a, n=3) :
-    ret = np.cumsum(a, dtype=float)
-    ret[n:] = ret[n:] - ret[:-n]
-    return ret[n - 1:] / n
-
-def zscore(x):
-    return (x - np.mean(x))/np.std(x)
 
 
 tsim = 300
-"""
-lfp_file = "output/ecp.h5"
-
-f = h5py.File(lfp_file,'r')
-lfp = list(f['ecp']['data'])
-lfp_arr = np.asarray(lfp)
-
-plt.figure()
-plt.title('LFP')
-lfp1 = zscore(lfp_arr[:,0])
-#lfp2 = zscore(lfp_arr[:,2])
-#lfp3 = zscore(lfp_arr[:,4])
-#np.savetxt("lfp_ben.csv", lfp1, delimiter=",")
-plt.plot(np.arange(0,tsim,0.1),lfp1)
-#plt.plot(np.arange(0,tsim,0.1),lfp2)
-#plt.plot(np.arange(0,tsim,0.1),lfp3)
-plt.xlim(4000,5000)
-
-freqs, psd = welch(lfp1,fs=1000)
-
-
-plt.figure()
-plt.semilogy(freqs, psd)
-plt.title('LFP PSD')
-plt.xlabel('Frequency')
-plt.ylabel('Power')
-plt.show()
-"""
-
 lfp_file = "output/ecp.h5"
 f = h5py.File(lfp_file,'r')
 lfp = list(f['ecp']['data'])
@@ -62,3 +29,50 @@ plt.ylabel('channel')
 plt.title("lfp for CA1")
 plt.show()
 
+def butter_lowpass(cutoff, fs, order=5):
+    nyq = 0.5 * fs
+    normal_cutoff = cutoff / nyq
+    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+    return b, a
+
+def butter_lowpass_filter(data, cutoff, fs, order=5):
+    b, a = butter_lowpass(cutoff, fs, order=order)
+    y = filtfilt(b, a, data)
+    return y
+
+# Filter requirements.
+order = 6
+fs = 10000       # sample rate, Hz
+cutoff = 500  # desired cutoff frequency of the filter, Hz
+
+# Get the filter coefficients so we can check its frequency response.
+data=lfp[0]
+
+y = butter_lowpass_filter(data, cutoff, fs, order)
+filtered= resample(y, 1000)
+filtered = zscore(filtered)
+
+data = resample(data, 1000)
+raw = zscore(data)
+
+plt.plot(np.arange(0,1000, 1), filtered, label='filtered')
+plt.plot(np.arange(0,1000, 1), raw, label='raw')
+
+plt.legend()
+plt.show()
+
+lfp_file = "output/ecp.h5"
+f = h5py.File(lfp_file,'r')
+lfp = list(f['ecp']['data'])
+lfp_arr = np.asarray(lfp)
+lfp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+for i in range(13):
+    lfp[i] = lfp_arr[:,i]
+    lfp[i] = [x+i for x in lfp[i]]
+    y = butter_lowpass_filter(lfp[i], cutoff, fs, order)
+    filtered = resample(y, 1000)
+    plt.plot(np.arange(0, 1000, 1), filtered)
+plt.xlabel('time')
+plt.ylabel('channel')
+plt.title("lfp for CA1")
+plt.show()

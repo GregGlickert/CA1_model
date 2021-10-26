@@ -305,10 +305,23 @@ proc append_sections() { local i
 	ca3cell_list = new SectionList()
 	mscell_list = new SectionList()
 
-	axon[1] all.append()
-	axon[1] axonal.append()
 	axon[0] all.append()
-	axon[0] axonal.append()
+	axon[1] all.append()
+	axon[2] all.append()
+	axon[3] all.append()
+	axon[4] all.append()
+
+	axon[5] all.append()
+	axon[6] all.append()
+	axon[7] all.append()
+	axon[8] all.append()
+	axon[9] all.append()
+	axon[10] all.append()
+	axon[11] all.append()
+
+	for i=0,11{
+		axon[i] axonal.append()
+	}
 
 	for i=0,NumSoma-1 soma[i] { all.append()
 								somatic.append()}

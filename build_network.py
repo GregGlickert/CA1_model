@@ -18,8 +18,8 @@ print("placing cells in space")
 net = NetworkBuilder("biophysical")
 # amount of cells
 numAAC = 147  # 147
-numCCK = 10  # 360
-numNGF = 10  # 580
+numCCK = 1  # 360
+numNGF = 1  # 580
 numOLM = 164  # 164
 numPV = 553  # 553
 numPyr = 31150  # 31150
@@ -134,11 +134,11 @@ net.add_nodes(N=numOLM, pop_name='OLM',
               rotation_angle_zaxis=(np.pi / 2),  # 90 degrees
               morphology=None)
 # save location in array delete used locations
-#for i in range(numOLM):
-#    cell_name.append("OLM in SO layer")
-#    cell_x.append(pos[i][0])
-#    cell_y.append(pos[i][1])
-#    cell_z.append(pos[i][2])
+for i in range(numOLM):
+    cell_name.append("OLM in SO layer")
+    cell_x.append(pos[i][0])
+    cell_y.append(pos[i][1])
+    cell_z.append(pos[i][2])
 
 pos_list_SO = np.delete(pos_list_SO, inds, 0)
 
@@ -384,11 +384,11 @@ for i in range(len(cell_name)):
 df.to_csv("cell_locations.csv")
 count = 0
 
-background_PN = NetworkBuilder('bg_pn')
-background_PN.add_nodes(N=numPyr,
-                   pop_name='tON',
-                   potential='exc',
-                   model_type='virtual')
+#background_PN = NetworkBuilder('bg_pn')
+#background_PN.add_nodes(N=numPyr,
+#                   pop_name='tON',
+#                   potential='exc',
+#                   model_type='virtual')
 
 def AAC_to_PYR(src, trg, a, x0, sigma, max_dist):
     if src.node_id == trg.node_id:
@@ -449,25 +449,20 @@ print('AAC connections')
 conn = net.add_edges(source={'pop_name': 'AAC'}, target={'pop_name': 'Pyr'},
                      iterator='one_to_one',
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.072, 'max_dist': 400},  # was 0.05
+                     connection_params={'prob': 0.072, 'max_dist': 400},  # better was 0.072
                      syn_weight=1,
-                     #weight_function='lognormal',
-                     #weight_sigma=0.1,
                      delay=0.1,
                      dynamics_params='CHN2PN.json',
                      model_template=syn['CHN2PN.json']['level_of_detail'],
-                     distance_range=[0.0, 400.0],
+                     distance_range=[-10000.0, 10000.0],
                      target_sections=['axonal'],
-                     sec_id=4,
-                     sec_x=0.5)
-
-# dynamics_params='CHN2PN.json',
-# model_template=syn['CHN2PN.json']['level_of_detail'],
+                     sec_id = 6,  # check and is working putting syn on right location
+                     sec_x = 0.5)
 
 # convergence of 163
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.009635, 'max_dist': 400}, # was 0.007631  0.293231
+                     connection_params={'prob': 0.009635, 'max_dist': 400}, # was  0.009635
                      syn_weight=1,
                      #weight_function='lognormal',
                      #weight_sigma=1,
@@ -476,7 +471,7 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
                      model_template=syn['PN2CHN.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['apical'],
-                     sec_id=4,
+                     sec_id=6,  # checked and is working well
                      sec_x=0.5)
 
 # dynamics_params='PN2INT.json',
@@ -505,7 +500,7 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'PV'},
                      model_template=syn['PN2PV.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['apical'],
-                     sec_id=4,
+                     sec_id=6,
                      sec_x=0.5)
 #con 39
 conn = net.add_edges(source={'pop_name': 'PV'}, target={'pop_name': 'AAC'},
@@ -543,7 +538,7 @@ conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'Pyr'},
                      model_template=syn['OLM2PN.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['apical'],
-                     sec_id=2,
+                     sec_id=4,
                      sec_x=0.5)
 #convergence 8
 conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'AAC'},
@@ -555,7 +550,7 @@ conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'AAC'},
                      model_template=syn['OLM2CHN.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['apical'],
-                     sec_id=2,
+                     sec_id=4,
                      sec_x=0.5)
 #convergence 8
 conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'PV'},
@@ -567,7 +562,7 @@ conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'PV'},
                      model_template=syn['OLM2PV.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['apical'],
-                     sec_id=2,
+                     sec_id=4,
                      sec_x=0.5)
 #convergence of 6
 conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'OLM'},
@@ -579,20 +574,20 @@ conn = net.add_edges(source={'pop_name': 'OLM'}, target={'pop_name': 'OLM'},
                      model_template=syn['OLM2OLM.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['basal'],
-                     sec_id=2,
-                     sec_x=0.5)
+                     sec_id=0,
+                     sec_x=0.9)
 
 # converge 2378
 conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'OLM'},
                      connection_rule=n_connections,
-                     connection_params={'prob': 0.1320, 'max_dist': 400},
+                     connection_params={'prob': 0.1320, 'max_dist': 400}, # was 0.1320
                      syn_weight=1,
                      delay=0.1,
                      dynamics_params='PN2OLM.json',
                      model_template=syn['PN2OLM.json']['level_of_detail'],
                      distance_range=[0.0, 400.0],
                      target_sections=['basal'],
-                     sec_id=0,
+                     sec_id=2,
                      sec_x=0.5)
 
 """
@@ -624,25 +619,25 @@ conn = net.add_edges(source={'pop_name': 'NGF'}, target={'pop_name': 'Pyr'},
                      sec_x=0.5)
 """
 
-print('background connections')
-net.add_edges(source=background_PN.nodes(), target=net.nodes(pop_name='Pyr'),
-              connection_rule=one_to_one,
-              syn_weight=1,
-              target_sections=['somatic'],
-              delay=0.1,
-              distance_range=[0.0, 300.0],
-              dynamics_params='AMPA_ExcToExc.json',
-              model_template='exp2syn')
+#rint('background connections')
+#net.add_edges(source=background_PN.nodes(), target=net.nodes(pop_name='Pyr'),
+#              connection_rule=one_to_one,
+#              syn_weight=1,
+#              target_sections=['somatic'],
+#              delay=0.1,
+#              distance_range=[0.0, 300.0],
+#              dynamics_params='AMPA_ExcToExc.json',
+#              model_template='exp2syn')
 
 print("building bio cells")
 net.build()
 print("Saving bio cells")
 net.save(output_dir='network')
 
-print("building virtual cells")
-background_PN.build()
-print("saving virtual cells")
-background_PN.save_nodes(output_dir='network')
+#print("building virtual cells")
+#background_PN.build()
+#print("saving virtual cells")
+#background_PN.save_nodes(output_dir='network')
 
 #print(count)
 
@@ -673,13 +668,13 @@ t_stim = 1000.0
 #                compile_mechanisms=False)
 
 
-psg = PoissonSpikeGenerator(population='bg_pn')
-psg.add(node_ids=range(numPyr),  # need same number as cells
-        firing_rate=0.000005,    # 1 spike every 5 seconds Hz
-        times=(0.0, t_stim/1000))  # time is in seconds for some reason
-psg.to_sonata('CA1_inputs/bg_pn_spikes.h5')
+#psg = PoissonSpikeGenerator(population='bg_pn')
+#psg.add(node_ids=range(numPyr),  # need same number as cells
+#        firing_rate=0.000005,    # 1 spike every 5 seconds Hz
+#        times=(0.0, t_stim/1000))  # time is in seconds for some reason
+#psg.to_sonata('CA1_inputs/bg_pn_spikes.h5')
 
-print('Number of background spikes to PN cells: {}'.format(psg.n_spikes()))
+#print('Number of background spikes to PN cells: {}'.format(psg.n_spikes()))
 
 
 

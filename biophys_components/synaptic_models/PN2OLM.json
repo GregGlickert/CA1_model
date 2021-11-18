@@ -12,7 +12,7 @@
     "Erev_nmda": "0",
     "initW": "1",
     "initW_lognormal_mean": 1,
-    "initW_lognormal_std": 1.2,
+    "initW_lognormal_std": 0.5,
     "Wmax": "25",
     "Wmin": "0.25",
     "delay": "0.8",

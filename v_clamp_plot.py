@@ -1,10 +1,13 @@
 import h5py
 import matplotlib.pyplot as plt
+import numpy as np
 
-F = h5py.File('output/se_clamp_report.h5', 'r')
-report = F['data']
-plt.plot(report)
-plt.ylabel("current")
-plt.xlabel("time")
-plt.title("Voltage clamp on AAC 31385 at -70mV")
+F = h5py.File('output/se_clamp_report2.h5', 'r')
+report = F['data'][2000:]
+x = np.arange(0, 100, 0.1)
+plt.plot(x, report)
+plt.ylabel("current (nA)")
+plt.xlabel("time (ms)")
+#plt.xlim((200,300))
+plt.title("Voltage clamp on AAC")
 plt.show()

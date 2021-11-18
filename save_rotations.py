@@ -88,4 +88,4 @@ for node in pop.get_nodes():
     node._node._node_type_props['morphology'] = node.model_template[1]
 sim = bionet.BioSimulator.from_config(conf, network=graph)
 
-save_connections(graph,sim)
+save_connections(graph, sim)

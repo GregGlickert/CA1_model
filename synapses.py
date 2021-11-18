@@ -1,7 +1,6 @@
 import glob
 import json
 import os
-import matplotlib.pyplot as plt
 from bmtk.simulator.bionet.pyfunction_cache import add_synapse_model
 from neuron import h
 import numpy as np

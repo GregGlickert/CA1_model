@@ -22,11 +22,13 @@ lfp_arr = np.asarray(lfp)
 lfp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 for i in range(13):
     lfp[i] = lfp_arr[:,i]
-    lfp[i] = [x+i for x in lfp[i]]
-    plt.plot(np.arange(0,tsim,0.1),lfp[i])
-plt.xlabel('time')
-plt.ylabel('channel')
-plt.title("lfp for CA1")
+    lfp[i] = [(x*10)+i for x in lfp[i]]
+    temp = lfp[i]
+    temp = temp[1500:2500]
+    plt.plot(np.arange(0,100,0.1),temp)
+plt.xlabel('time (ms)')
+plt.ylabel('channels')
+plt.title("raw lfp for CA1")
 plt.show()
 
 def butter_lowpass(cutoff, fs, order=5):
@@ -68,11 +70,14 @@ lfp_arr = np.asarray(lfp)
 lfp = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 for i in range(13):
     lfp[i] = lfp_arr[:,i]
-    lfp[i] = [x+i for x in lfp[i]]
+    lfp[i] = [(x*10)+i for x in lfp[i]]
     y = butter_lowpass_filter(lfp[i], cutoff, fs, order)
+    print(y.shape)
     filtered = resample(y, 1000)
-    plt.plot(np.arange(0, 1000, 1), filtered)
-plt.xlabel('time')
-plt.ylabel('channel')
-plt.title("lfp for CA1")
+    print(filtered.shape)
+    filtered = filtered[500:804]
+    plt.plot(np.arange(0, 100, 0.33), filtered)
+plt.xlabel('time (ms)')
+plt.ylabel('channel ')
+plt.title("Filtered lfp for CA1")
 plt.show()

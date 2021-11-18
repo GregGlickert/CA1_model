@@ -7,7 +7,7 @@
   "target_simulator": "NEURON",
   "run": {
     "tstart": 0.0,
-    "tstop": 300.0,
+    "tstop": 250.0,
     "dt": 0.1,
     "dL": 20.0,
     "spike_threshold": -15.0,
@@ -23,7 +23,7 @@
       "module": "SEClamp",
       "node_set": "all",
       "gids": [
-        31375
+        13
       ],
       "amps": [
         [
@@ -34,14 +34,13 @@
       ],
       "durations": [
         [
-          300,
-          300,
-          300
+          90,
+          90,
+          90
         ]
       ],
-      "rs": [
-        0.01
-      ]
+      "rs": [0.01],
+      "delay": 160.0
     },
     "current_clamp": {
       "input_type": "current_clamp",
@@ -49,11 +48,10 @@
       "node_set": "all",
       "gids": [
         13,
-        5,
-        31373
+        5
       ],
       "amp": 0.5,
-      "delay": 200.0,
+      "delay": 150.0,
       "duration": 7.0
     }
   },

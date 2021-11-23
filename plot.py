@@ -23,6 +23,37 @@ def raster(spikes_df, node_set, skip_ms=0, ax=None):
     ax.legend(reversed(handles), reversed(labels))
     ax.grid(False)
 
+def spike_frequency_bar_graph(spikes_df, node_set, ms, start=0, end=80000, ax=None, n_bins=10):
+    mean = []
+    name = []
+    labels = []
+    for node in node_set:
+        cells = range(node['start'], node['end'] + 1)  # +1 to be inclusive of last cell
+        cell_spikes = spikes_df[spikes_df['node_ids'].isin(cells)]
+
+        # skip the first few ms
+        cell_spikes = cell_spikes[cell_spikes['timestamps'] > start]
+        cell_spikes = cell_spikes[cell_spikes['timestamps'] < end]
+        spike_counts = cell_spikes.node_ids.value_counts()
+        total_seconds = (ms) / 1000
+        spike_counts_per_second = spike_counts / total_seconds
+
+        spikes_mean = spike_counts_per_second.mean()
+        spikes_std = spike_counts_per_second.std()
+
+        label = "{} : {:.2f} ({:.2f})".format(node['name'], spikes_mean, spikes_std)
+        #print(label)
+        c = "tab:" + node['color']
+        if ax:
+            mean.append(spikes_mean)
+            name.append(node['name'])
+            labels.append(label)
+            ax.bar(node['name'], spikes_mean,label=label,color=c)
+
+
+    if ax:
+        ax.legend()
+
 dt = 0.1
 steps_per_ms = 1/dt
 skip_seconds = 5
@@ -46,8 +77,9 @@ node_set = [
     {"name": "AAC", "start": 31972, "end": 31980, "color": "olive"}
 ]
 
-fig, ax1 = plt.subplots(1,1,figsize=(12,4.8))
+fig, (ax1, ax2) = plt.subplots(1,2,figsize=(12,4.8))
 
 raster(spikes_df,node_set,skip_ms=0,ax=ax1)
+spike_frequency_bar_graph(spikes_df,node_set,start=0,end=250,ax=ax2,ms=(250))
 
 plt.savefig('raster.png')

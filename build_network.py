@@ -477,7 +477,7 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'AAC'},
 # dynamics_params='PN2INT.json',
 # model_template=syn['PN2INT.json']['level_of_detail'],
 # convergence of 17
-
+"""
 print('PV connections')
 conn = net.add_edges(source={'pop_name': 'PV'}, target={'pop_name': 'Pyr'},
                      connection_rule=n_connections,
@@ -589,7 +589,7 @@ conn = net.add_edges(source={'pop_name': 'Pyr'}, target={'pop_name': 'OLM'},
                      target_sections=['basal'],
                      sec_id=2,
                      sec_x=0.5)
-
+"""
 """
 #convergence of 13
 print("CCK connections")

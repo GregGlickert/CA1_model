@@ -6,10 +6,10 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import h5py
 
-raster = plot_raster(config_file='simulation_config.json', group_by='pop_name', times=(150, 300), title="raster")
+#raster = plot_raster(config_file='simulation_config.json', group_by='pop_name', times=(150, 300), title="raster")
 
-plt.show()
-"""
+#plt.show()
+
 def raster(spikes_df, node_set, skip_ms=0, ax=None):
     spikes_df = spikes_df[spikes_df['timestamps'] > skip_ms]
     for node in node_set:
@@ -81,6 +81,6 @@ fig, (ax1, ax2) = plt.subplots(1,2,figsize=(12,4.8))
 
 raster(spikes_df,node_set,skip_ms=0,ax=ax1)
 spike_frequency_bar_graph(spikes_df,node_set,start=0,end=250,ax=ax2,ms=(250))
-
+plt.show()
 plt.savefig('raster.png')
-"""
+

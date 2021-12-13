@@ -81,6 +81,6 @@ fig, (ax1, ax2) = plt.subplots(1,2,figsize=(12,4.8))
 
 raster(spikes_df,node_set,skip_ms=0,ax=ax1)
 spike_frequency_bar_graph(spikes_df,node_set,start=0,end=250,ax=ax2,ms=(250))
-plt.show()
+
 plt.savefig('raster.png')
 

@@ -34,9 +34,9 @@
       ],
       "durations": [
         [
-          90,
-          90,
-          90
+          100,
+          100,
+          100
         ]
       ],
       "rs": [0.01],
@@ -64,15 +64,7 @@
     "se_clamp_report": {
       "variable_name": "se",
       "module": "clamp_report"
-    },
-    "ecp": {
-      "cells": "all",
-      "variable_name": "v",
-      "module": "extracellular",
-      "electrode_positions": "$COMPONENTS_DIR/recXelectrodes/linear_electrode.csv",
-      "file_name": "ecp.h5",
-      "electrode_channels": "all"
-      }
+    }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",
   "network": "$BASE_DIR/circuit_config.json"

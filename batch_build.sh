@@ -4,7 +4,7 @@
 #SBATCH --qos=normal
 #SBATCH --job-name=CA1
 #SBATCH --output=buildCA1.out
-#SBATCH --time 0-01:00
+#SBATCH --time 0-00:30
 
 echo "building CA1 model at $(date)"
 

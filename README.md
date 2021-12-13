@@ -21,4 +21,12 @@ sbatch batch_run.sh
 ### Step one
 #### Build network on local machine
 ### Step two
-#### Compress CA1_model folder
+#### Compress CA1_model folder into a zip
+### Step three
+#### Upload zip to NSG in the data folder
+### Step four
+#### Create a new task and use the Neuron on Expanse toolkit
+### Step five
+#### Change parameters and then click box for if your code is python and change the input file name to run_network.py and then change number of nodes to how many core you want
+### Step six
+#### Submit network to run on NSG!

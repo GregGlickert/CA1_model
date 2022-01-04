@@ -23,7 +23,7 @@
       "module": "SEClamp",
       "node_set": "all",
       "gids": [
-        6
+        4
       ],
       "amps": [
         [
@@ -64,7 +64,15 @@
     "se_clamp_report": {
       "variable_name": "se",
       "module": "clamp_report"
-    }
+    },
+    "ecp": {
+      "cells": "all",
+      "variable_name": "v",
+      "module": "extracellular",
+      "electrode_positions": "$COMPONENTS_DIR/recXelectrodes/linear_electrode.csv",
+      "file_name": "ecp.h5",
+      "electrode_channels": "all"
+      }
   },
   "node_sets_file": "$BASE_DIR/node_sets.json",
   "network": "$BASE_DIR/circuit_config.json"

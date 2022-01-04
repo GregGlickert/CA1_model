@@ -1,4 +1,4 @@
-: $Id: xtra.mod,v 1.4 2014/08/18 23:15:25 ted Exp ted $
+: $Id: xtra.mod,v 1.3 2009/02/24 00:52:07 ted Exp ted $
 
 COMMENT
 This mechanism is intended to be used in conjunction 
@@ -67,7 +67,7 @@ when the adaptive integrator is used.
 
 With NEURON 5.5 and later, this mechanism abandons the BREAKPOINT 
 block and uses the two new blocks BEFORE BREAKPOINT and  
-AFTER SOLVE, like this--
+AFTER BREAKPOINT, like this--
 
 BEFORE BREAKPOINT { : before each cy' = f(y,t) setup
   ex = is*rx*(1e6)
@@ -81,11 +81,12 @@ solution step, and that the recorded potential is computed after.
 ENDCOMMENT
 
 NEURON {
-	SUFFIX xtraimemrec
+	SUFFIX xtra
 	RANGE rx, er
-	RANGE x, y, z,LFPtemp
-	GLOBAL is,LFP
-	POINTER im, ex:
+	RANGE x, y, z
+	GLOBAL is
+	POINTER im, ex
+	GLOBAL lfp
 }
 
 PARAMETER {
@@ -103,46 +104,28 @@ ASSIGNED {
 	im (milliamp/cm2)
 	er (microvolts)
 	area (micron2)
-	LFP (millivolts)
-   LFPtemp(millivolts)
+	lfp (microvolts)
 }
 
 INITIAL {
 	ex = is*rx*(1e6)
-	er = (10)*0.1*im*area
-	LFP = LFP + er
-	LFPtemp=LFP
+	er = (10)*rx*im*area
+	lfp = lfp + er
 : this demonstrates that area is known
 : UNITSOFF
 : printf("area = %f\n", area)
 : UNITSON
 }
 
-: Use BREAKPOINT for NEURON 5.4 and earlier
-: BREAKPOINT {
-:	SOLVE f METHOD cvode_t
-: }
-:
-: PROCEDURE f() {
-:	: 1 mA * 1 megohm is 1000 volts
-:	: but ex is in mV
-:	ex = is*rx*(1e6)
-:	er = (10)*rx*im*area
-: }
 
-: With NEURON 5.5 and later, abandon the BREAKPOINT block and PROCEDURE f(),
-: and instead use BEFORE BREAKPOINT and AFTER SOLVE
 
 BEFORE BREAKPOINT { : before each cy' = f(y,t) setup
   ex = is*rx*(1e6)
-  LFP = 0
-  LFPtemp=LFP
-  :print LFPtemp
+  lfp = 0
 }
+
 AFTER SOLVE { : after each solution step
-  er = (10)*0.1*im*area
-  LFP = LFP + er
-  LFPtemp=LFP
-  :print LFPtemp
+	er = (10)*rx*im*area	
+	lfp = lfp + er
 }
 
